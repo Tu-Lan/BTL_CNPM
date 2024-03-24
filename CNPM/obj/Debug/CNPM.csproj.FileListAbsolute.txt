@@ -1,0 +1,9 @@
+C:\Users\luuph\source\repos\CNPM\CNPM\bin\Debug\CNPM.exe.config
+C:\Users\luuph\source\repos\CNPM\CNPM\bin\Debug\CNPM.exe
+C:\Users\luuph\source\repos\CNPM\CNPM\bin\Debug\CNPM.pdb
+C:\Users\luuph\source\repos\CNPM\CNPM\obj\Debug\CNPM.csproj.AssemblyReference.cache
+C:\Users\luuph\source\repos\CNPM\CNPM\obj\Debug\CNPM.Properties.Resources.resources
+C:\Users\luuph\source\repos\CNPM\CNPM\obj\Debug\CNPM.csproj.GenerateResource.cache
+C:\Users\luuph\source\repos\CNPM\CNPM\obj\Debug\CNPM.csproj.CoreCompileInputs.cache
+C:\Users\luuph\source\repos\CNPM\CNPM\obj\Debug\CNPM.exe
+C:\Users\luuph\source\repos\CNPM\CNPM\obj\Debug\CNPM.pdb
