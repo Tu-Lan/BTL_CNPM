@@ -1,5 +1,13 @@
 create database QUANLIHOCSINH
 USE QUANLIHOCSINH
+
+-- Tao bang dang ky (sign up)
+CREATE TABLE tblSignUp(
+	sUserName  NVARCHAR(30) NOT NULL,
+	sPassWord NVARCHAR(30) NOT NULL,
+	sConfirmPass NVARCHAR(30) NOT NULL
+);
+
 -- T?o b?ng tblStudent
 CREATE TABLE tblStudent (
     PK_sStudentID varchar(10) PRIMARY KEY,
@@ -49,7 +57,7 @@ CREATE TABLE tblClass (
     FK_sTeacherID varchar(10),
     FK_sTermID varchar(10),
     FOREIGN KEY (FK_sTeacherID) REFERENCES tblTeacher(PK_sTeacherID),
-    FOREIGN KEY (FK_sTermID) REFERENCES tblTerm(PK_sTermID) -- –?t khÛa ngo?i t?i b?ng tblTerm (gi? s? b?ng h?c k? d„ du?c t?o)
+    FOREIGN KEY (FK_sTermID) REFERENCES tblTerm(PK_sTermID) -- √ê?t kh√≥a ngo?i t?i b?ng tblTerm (gi? s? b?ng h?c k? d√£ du?c t?o)
 );
 
 -- T?o b?ng tblTerm
