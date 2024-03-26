@@ -55,7 +55,7 @@ namespace CNPM
             string password = txtPass.Text.Trim();
             if(username !="" && password != "")
             {
-                string query = "SELECT COUNT(*) FROM tblSignUp WHERE sUserName='" + username + "' and " + "sPassword='" + password + "'";
+                string query = "SELECT COUNT(*) FROM tblSignIn WHERE sUserName='" + username + "' and " + "sPassword='" + password + "'";
                 using (SqlConnection connection = new SqlConnection(constr))
                 {
                     connection.Open();
@@ -67,10 +67,23 @@ namespace CNPM
                     }
                     else
                     {
-                        MessageBox.Show("Chào mừng!!", "Thông báo");
-                        frmTrangChu trangChu = new frmTrangChu();
-                        this.Hide();
-                        trangChu.Show();
+                        string roleQuery = "SELECT sRole FROM tblSignIn WHERE sUserName='" + username + "'";
+                        SqlCommand roleCommand = new SqlCommand(roleQuery, connection);
+                        string role = roleCommand.ExecuteScalar()?.ToString();
+
+                        if (role == "admin" || role == "gv")
+                        {
+                            frmTrangChuAD trangChuAD = new frmTrangChuAD();
+                            this.Hide();
+                            trangChuAD.Show();
+                        }
+                        //Thêm các trường hợp khác ở đây nếu cần
+                        else
+                        {
+                            frmTrangChuHS trangChuHS = new frmTrangChuHS();
+                            this.Hide();
+                            trangChuHS.Show();
+                        }
                     }
                 }
             }
@@ -79,14 +92,6 @@ namespace CNPM
                 MessageBox.Show("Điền hết các ô đi!!");
             }
         }
-
-        private void returnDangKy_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            frmDangKy dangKy= new frmDangKy();
-            this.Hide();
-            dangKy.Show();
-        }
-
 
     }
 }
