@@ -1,12 +1,20 @@
 create database QUANLIHOCSINH
 USE QUANLIHOCSINH
 
--- Tao bang dang ky (sign up)
-CREATE TABLE tblSignUp(
-	sUserName  NVARCHAR(30) NOT NULL,
+-- Tao bang dang nhap (sign in)
+CREATE TABLE tblSignIn(
+	sUserName  NVARCHAR(30) PRIMARY KEY NOT NULL,
 	sPassWord NVARCHAR(30) NOT NULL,
-	sConfirmPass NVARCHAR(30) NOT NULL
+	sRole NVARCHAR(30) NOT NULL
 );
+SELECT * FROM dbo.tblSignIn
+-- insert account 
+INSERT INTO dbo.tblSignIn
+VALUES
+(   N'admin',N'admin',N'admin'),
+(   N'thao',N'thao',N'gv'),
+(   N'minh',N'minh',N'gv'),
+(   N'thanh',N'thanh',N'hs')
 
 -- T?o b?ng tblStudent
 CREATE TABLE tblStudent (
