@@ -55,7 +55,7 @@ namespace CNPM
             string password = txtPass.Text.Trim();
             if(username !="" && password != "")
             {
-                string query = "SELECT COUNT(*) FROM tblSignIn WHERE sUserName='" + username + "' and " + "sPassword='" + password + "'";
+                string query = "SELECT COUNT(*) FROM NGUOIDUNG WHERE TenDangNhap='" + username + "' and " + "MatKhau='" + password + "'";
                 using (SqlConnection connection = new SqlConnection(constr))
                 {
                     connection.Open();
@@ -67,23 +67,28 @@ namespace CNPM
                     }
                     else
                     {
-                        string roleQuery = "SELECT sRole FROM tblSignIn WHERE sUserName='" + username + "'";
+                        string roleQuery = "SELECT MaLoai FROM NGUOIDUNG WHERE TenDangNhap='" + username + "'";
                         SqlCommand roleCommand = new SqlCommand(roleQuery, connection);
                         string role = roleCommand.ExecuteScalar()?.ToString();
 
-                        if (role == "admin" || role == "gv")
+                        if (role == "LND001")
                         {
                             frmTrangChuAD trangChuAD = new frmTrangChuAD();
                             this.Hide();
                             trangChuAD.Show();
+                        }else if (role == "LND002")
+                        {
+                            frmTrangChuBGH bgh = new frmTrangChuBGH();
+                            this.Hide();
+                            bgh.Show();
                         }
-                        //Thêm các trường hợp khác ở đây nếu cần
                         else
                         {
-                            frmTrangChuHS trangChuHS = new frmTrangChuHS();
+                            frmTrangChuGV gv = new frmTrangChuGV();
                             this.Hide();
-                            trangChuHS.Show();
+                            gv.Show();
                         }
+                        
                     }
                 }
             }

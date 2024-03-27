@@ -78,6 +78,9 @@ C:\Users\luuph\source\repos\CNPM\CNPM\bin\Debug\zh-Hant\Microsoft.Data.SqlClient
 C:\Users\luuph\source\repos\CNPM\CNPM\obj\Debug\CNPM.frmDangNhap.resources
 C:\Users\luuph\source\repos\CNPM\CNPM\obj\Debug\CNPM.csproj.CopyComplete
 C:\Users\luuph\source\repos\CNPM\CNPM\bin\Debug\Guna.UI2.dll
-C:\Users\luuph\source\repos\CNPM\CNPM\obj\Debug\CNPM.frmTrangChuHS.resources
-C:\Users\luuph\source\repos\CNPM\CNPM\obj\Debug\CNPM.frmGiaoVien.resources
 C:\Users\luuph\source\repos\CNPM\CNPM\obj\Debug\CNPM.frmTrangChuAD.resources
+C:\Users\luuph\source\repos\CNPM\CNPM\obj\Debug\CNPM.frmHocSinh.resources
+C:\Users\luuph\source\repos\CNPM\CNPM\obj\Debug\CNPM.frmChiTietHS.resources
+C:\Users\luuph\source\repos\CNPM\CNPM\obj\Debug\CNPM.frmTrangChuBGH.resources
+C:\Users\luuph\source\repos\CNPM\CNPM\obj\Debug\CNPM.frmTrangChuGV.resources
+C:\Users\luuph\source\repos\CNPM\CNPM\obj\Debug\CNPM.frmDiemHS.resources

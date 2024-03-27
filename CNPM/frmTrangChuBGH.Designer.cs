@@ -2,7 +2,7 @@ using System.ComponentModel;
 
 namespace CNPM
 {
-    partial class frmTrangChuAD
+    partial class frmTrangChuBGH
     {
         /// <summary>
         /// Required designer variable.
@@ -33,7 +33,6 @@ namespace CNPM
         {
             this.meNu = new System.Windows.Forms.MenuStrip();
             this.giáoViênToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.họcSinhToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.lớpHọcToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mônHọcToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.báoCáoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -44,11 +43,12 @@ namespace CNPM
             // meNu
             // 
             this.meNu.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.meNu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { this.giáoViênToolStripMenuItem, this.họcSinhToolStripMenuItem, this.lớpHọcToolStripMenuItem, this.mônHọcToolStripMenuItem, this.báoCáoToolStripMenuItem, this.đăngXuấtToolStripMenuItem });
+            this.meNu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { this.giáoViênToolStripMenuItem, this.lớpHọcToolStripMenuItem, this.mônHọcToolStripMenuItem, this.báoCáoToolStripMenuItem, this.đăngXuấtToolStripMenuItem });
             this.meNu.Location = new System.Drawing.Point(0, 0);
             this.meNu.Name = "meNu";
-            this.meNu.Size = new System.Drawing.Size(933, 31);
-            this.meNu.TabIndex = 0;
+            this.meNu.Padding = new System.Windows.Forms.Padding(12, 4, 0, 4);
+            this.meNu.Size = new System.Drawing.Size(762, 35);
+            this.meNu.TabIndex = 1;
             this.meNu.Text = "menu";
             // 
             // giáoViênToolStripMenuItem
@@ -56,13 +56,6 @@ namespace CNPM
             this.giáoViênToolStripMenuItem.Name = "giáoViênToolStripMenuItem";
             this.giáoViênToolStripMenuItem.Size = new System.Drawing.Size(107, 27);
             this.giáoViênToolStripMenuItem.Text = "Giáo Viên";
-            // 
-            // họcSinhToolStripMenuItem
-            // 
-            this.họcSinhToolStripMenuItem.Name = "họcSinhToolStripMenuItem";
-            this.họcSinhToolStripMenuItem.Size = new System.Drawing.Size(99, 27);
-            this.họcSinhToolStripMenuItem.Text = "Học Sinh";
-            this.họcSinhToolStripMenuItem.Click += new System.EventHandler(this.họcSinhToolStripMenuItem_Click);
             // 
             // lớpHọcToolStripMenuItem
             // 
@@ -89,34 +82,29 @@ namespace CNPM
             this.đăngXuấtToolStripMenuItem.Text = "Đăng Xuất";
             this.đăngXuấtToolStripMenuItem.Click += new System.EventHandler(this.đăngXuấtToolStripMenuItem_Click);
             // 
-            // frmTrangChuAD
+            // frmTrangChuBGH
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 23F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(933, 573);
+            this.ClientSize = new System.Drawing.Size(762, 610);
             this.Controls.Add(this.meNu);
+            this.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.IsMdiContainer = true;
-            this.MainMenuStrip = this.meNu;
-            this.Name = "frmTrangChuAD";
-            this.Text = "Trang Chủ";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmTrangChuAD_FormClosing);
+            this.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
+            this.Name = "frmTrangChuBGH";
+            this.Text = "frmTrangChuBGH";
             this.meNu.ResumeLayout(false);
             this.meNu.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
         }
 
-        private System.Windows.Forms.ToolStripMenuItem báoCáoToolStripMenuItem;
-
-        private System.Windows.Forms.ToolStripMenuItem đăngXuấtToolStripMenuItem;
-
-        private System.Windows.Forms.ToolStripMenuItem mônHọcToolStripMenuItem;
-
-        private System.Windows.Forms.ToolStripMenuItem giáoViênToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem họcSinhToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem lớpHọcToolStripMenuItem;
-
         private System.Windows.Forms.MenuStrip meNu;
+        private System.Windows.Forms.ToolStripMenuItem giáoViênToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem lớpHọcToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem mônHọcToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem báoCáoToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem đăngXuấtToolStripMenuItem;
 
         #endregion
     }

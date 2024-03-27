@@ -1,12 +1,20 @@
-create database QUANLIHOCSINH
+create DATABASE QUANLIHOCSINH
 USE QUANLIHOCSINH
 
--- Tao bang dang ky (sign up)
-CREATE TABLE tblSignUp(
-	sUserName  NVARCHAR(30) NOT NULL,
+-- Tao bang dang nhap (sign in)
+CREATE TABLE tblSignIn(
+	sUserName  NVARCHAR(30) PRIMARY KEY NOT NULL,
 	sPassWord NVARCHAR(30) NOT NULL,
-	sConfirmPass NVARCHAR(30) NOT NULL
+	sRole NVARCHAR(30) NOT NULL
 );
+SELECT * FROM dbo.tblSignIn
+-- insert account 
+INSERT INTO dbo.tblSignIn
+VALUES
+(   N'admin',N'admin',N'admin'),
+(   N'thao',N'thao',N'gv'),
+(   N'minh',N'minh',N'gv'),
+(   N'thanh',N'thanh',N'hs')
 -- T?o b?ng tblStudent
 CREATE TABLE tblStudent (
     PK_sStudentID varchar(10) PRIMARY KEY,
@@ -229,3 +237,47 @@ VALUES
 ('SUB1', 'STU008'),
 ('SUB10', 'STU005');
 
+
+
+
+
+SELECT
+    s.PK_sStudentID AS StudentID,
+    s.sFullName AS FullName,
+    su.PK_sSubjectID AS SubjectID,
+    su.sName AS SubjectName,
+    sc.fMidTerm AS MidTerm,
+    sc.fFinal AS Final,
+    sc.fOral AS Oral
+FROM
+    tblStudent s
+INNER JOIN
+    tblSubject_Student ss ON s.PK_sStudentID = ss.FK_sStudentID
+INNER JOIN
+    tblSubject su ON ss.FK_sSubjectID = su.PK_sSubjectID
+LEFT JOIN
+    tblScore sc ON su.PK_sSubjectID = sc.FK_sSubjectID
+WHERE
+    s.sFullName = N'Hoang Van E';
+
+
+	SELECT * FROM dbo.tblScore
+
+SELECT
+    s.PK_sStudentID AS StudentID,
+    s.sFullName AS FullName,
+    sc.PK_sScoreID AS ScoreID,
+    sb.sName AS SubjectName,
+    sc.fMidTerm AS MidTerm,
+    sc.fFinal AS Final,
+    sc.fOral AS Oral
+FROM
+    tblStudent s
+INNER JOIN
+    tblSubject_Student ss ON s.PK_sStudentID = ss.FK_sStudentID
+INNER JOIN
+    tblSubject sb ON ss.FK_sSubjectID = sb.PK_sSubjectID
+LEFT JOIN
+    tblScore sc ON sb.PK_sSubjectID = sc.FK_sSubjectID
+WHERE
+    s.PK_sStudentID = 'STU005';

@@ -2,7 +2,7 @@ using System.ComponentModel;
 
 namespace CNPM
 {
-    partial class frmTrangChuHS
+    partial class frmTrangChuGV
     {
         /// <summary>
         /// Required designer variable.
@@ -32,10 +32,10 @@ namespace CNPM
         private void InitializeComponent()
         {
             this.meNu = new System.Windows.Forms.MenuStrip();
+            this.họcSinhToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.lớpHọcToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.bảngĐiểmToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mônHọcToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.điểmMônHọcToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.lịchHọcToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.đăngXuấtToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.meNu.SuspendLayout();
             this.SuspendLayout();
@@ -43,12 +43,20 @@ namespace CNPM
             // meNu
             // 
             this.meNu.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.meNu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { this.lớpHọcToolStripMenuItem, this.bảngĐiểmToolStripMenuItem, this.mônHọcToolStripMenuItem, this.điểmMônHọcToolStripMenuItem, this.đăngXuấtToolStripMenuItem });
+            this.meNu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { this.họcSinhToolStripMenuItem, this.lớpHọcToolStripMenuItem, this.mônHọcToolStripMenuItem, this.lịchHọcToolStripMenuItem, this.đăngXuấtToolStripMenuItem });
             this.meNu.Location = new System.Drawing.Point(0, 0);
             this.meNu.Name = "meNu";
-            this.meNu.Size = new System.Drawing.Size(800, 31);
+            this.meNu.Padding = new System.Windows.Forms.Padding(10, 3, 0, 3);
+            this.meNu.Size = new System.Drawing.Size(891, 33);
             this.meNu.TabIndex = 1;
             this.meNu.Text = "menu";
+            // 
+            // họcSinhToolStripMenuItem
+            // 
+            this.họcSinhToolStripMenuItem.Name = "họcSinhToolStripMenuItem";
+            this.họcSinhToolStripMenuItem.Size = new System.Drawing.Size(99, 27);
+            this.họcSinhToolStripMenuItem.Text = "Học Sinh";
+            this.họcSinhToolStripMenuItem.Click += new System.EventHandler(this.họcSinhToolStripMenuItem_Click);
             // 
             // lớpHọcToolStripMenuItem
             // 
@@ -56,23 +64,18 @@ namespace CNPM
             this.lớpHọcToolStripMenuItem.Size = new System.Drawing.Size(95, 27);
             this.lớpHọcToolStripMenuItem.Text = "Lớp Học";
             // 
-            // bảngĐiểmToolStripMenuItem
-            // 
-            this.bảngĐiểmToolStripMenuItem.Name = "bảngĐiểmToolStripMenuItem";
-            this.bảngĐiểmToolStripMenuItem.Size = new System.Drawing.Size(116, 27);
-            this.bảngĐiểmToolStripMenuItem.Text = "Bảng Điểm";
-            // 
             // mônHọcToolStripMenuItem
             // 
             this.mônHọcToolStripMenuItem.Name = "mônHọcToolStripMenuItem";
             this.mônHọcToolStripMenuItem.Size = new System.Drawing.Size(101, 27);
             this.mônHọcToolStripMenuItem.Text = "Môn Học";
             // 
-            // điểmMônHọcToolStripMenuItem
+            // lịchHọcToolStripMenuItem
             // 
-            this.điểmMônHọcToolStripMenuItem.Name = "điểmMônHọcToolStripMenuItem";
-            this.điểmMônHọcToolStripMenuItem.Size = new System.Drawing.Size(152, 27);
-            this.điểmMônHọcToolStripMenuItem.Text = "Điểm Môn Học";
+            this.lịchHọcToolStripMenuItem.Name = "lịchHọcToolStripMenuItem";
+            this.lịchHọcToolStripMenuItem.Size = new System.Drawing.Size(99, 27);
+            this.lịchHọcToolStripMenuItem.Text = "Lịch Học";
+            this.lịchHọcToolStripMenuItem.Click += new System.EventHandler(this.điểmMônHọcToolStripMenuItem_Click);
             // 
             // đăngXuấtToolStripMenuItem
             // 
@@ -81,16 +84,17 @@ namespace CNPM
             this.đăngXuấtToolStripMenuItem.Text = "Đăng Xuất";
             this.đăngXuấtToolStripMenuItem.Click += new System.EventHandler(this.đăngXuấtToolStripMenuItem_Click);
             // 
-            // frmTrangChuHS
+            // frmTrangChuGV
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(891, 692);
             this.Controls.Add(this.meNu);
+            this.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.IsMdiContainer = true;
-            this.Name = "frmTrangChuHS";
-            this.Text = "frmTrangChuHS";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmTrangChuHS_FormClosing);
+            this.Margin = new System.Windows.Forms.Padding(5);
+            this.Name = "frmTrangChuGV";
+            this.Text = "Trang Chủ";
             this.meNu.ResumeLayout(false);
             this.meNu.PerformLayout();
             this.ResumeLayout(false);
@@ -98,10 +102,10 @@ namespace CNPM
         }
 
         private System.Windows.Forms.MenuStrip meNu;
+        private System.Windows.Forms.ToolStripMenuItem họcSinhToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem lớpHọcToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem bảngĐiểmToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem mônHọcToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem điểmMônHọcToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem lịchHọcToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem đăngXuấtToolStripMenuItem;
 
         #endregion

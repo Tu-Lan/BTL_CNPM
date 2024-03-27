@@ -3,27 +3,16 @@ using System.Windows.Forms;
 
 namespace CNPM
 {
-    public partial class frmTrangChuAD : Form
+    public partial class frmTrangChuGV : Form
     {
-        public frmTrangChuAD()
+        public frmTrangChuGV()
         {
             InitializeComponent();
         }
-        private bool isUserWantsToExit = false;
-        private void frmTrangChuAD_FormClosing(object sender, FormClosingEventArgs e)
+
+        private void điểmMônHọcToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (!isUserWantsToExit)
-            {
-                if (MessageBox.Show("Bạn có muốn thoát chương trình?", "Thông Báo", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                {
-                    isUserWantsToExit = true;
-                    Application.Exit();
-                }
-                else
-                {
-                    e.Cancel = true;
-                }
-            }
+            throw new System.NotImplementedException();
         }
 
         private void đăngXuấtToolStripMenuItem_Click(object sender, EventArgs e)
