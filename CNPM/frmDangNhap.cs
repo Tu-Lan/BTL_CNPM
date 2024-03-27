@@ -73,18 +73,18 @@ namespace CNPM
 
                         if (role == "LND001")
                         {
-                            frmTrangChuAD trangChuAD = new frmTrangChuAD();
+                            frmTrangChuAD trangChuAD = new frmTrangChuAD(username:txtUser.Text,role:role);
                             this.Hide();
                             trangChuAD.Show();
                         }else if (role == "LND002")
                         {
-                            frmTrangChuBGH bgh = new frmTrangChuBGH();
+                            frmTrangChuBGH bgh = new frmTrangChuBGH(username:txtUser.Text,role:role);
                             this.Hide();
                             bgh.Show();
                         }
                         else
                         {
-                            frmTrangChuGV gv = new frmTrangChuGV();
+                            frmTrangChuGV gv = new frmTrangChuGV(username:txtUser.Text,role:role);
                             this.Hide();
                             gv.Show();
                         }

@@ -5,9 +5,14 @@ namespace CNPM
 {
     public partial class frmTrangChuBGH : Form
     {
-        public frmTrangChuBGH()
+        private string username;
+        private string role;
+        public frmTrangChuBGH(string username, string role)
         {
             InitializeComponent();
+            this.username = username;
+            this.role = role;
+            txtInfo.Text = "Tên người dùng: " + username + "\r\nVai trò: " + role;
         }
 
         private void đăngXuấtToolStripMenuItem_Click(object sender, EventArgs e)

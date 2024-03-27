@@ -37,6 +37,7 @@ namespace CNPM
             this.mônHọcToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.lịchHọcToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.đăngXuấtToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.txtInfo = new System.Windows.Forms.TextBox();
             this.meNu.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -84,11 +85,21 @@ namespace CNPM
             this.đăngXuấtToolStripMenuItem.Text = "Đăng Xuất";
             this.đăngXuấtToolStripMenuItem.Click += new System.EventHandler(this.đăngXuấtToolStripMenuItem_Click);
             // 
+            // txtInfo
+            // 
+            this.txtInfo.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtInfo.Location = new System.Drawing.Point(717, 2);
+            this.txtInfo.Multiline = true;
+            this.txtInfo.Name = "txtInfo";
+            this.txtInfo.Size = new System.Drawing.Size(174, 31);
+            this.txtInfo.TabIndex = 3;
+            // 
             // frmTrangChuGV
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(891, 692);
+            this.Controls.Add(this.txtInfo);
             this.Controls.Add(this.meNu);
             this.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.IsMdiContainer = true;
@@ -100,6 +111,8 @@ namespace CNPM
             this.ResumeLayout(false);
             this.PerformLayout();
         }
+
+        private System.Windows.Forms.TextBox txtInfo;
 
         private System.Windows.Forms.MenuStrip meNu;
         private System.Windows.Forms.ToolStripMenuItem họcSinhToolStripMenuItem;

@@ -38,6 +38,7 @@ namespace CNPM
             this.mônHọcToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.báoCáoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.đăngXuấtToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.txtInfo = new System.Windows.Forms.TextBox();
             this.meNu.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -89,11 +90,21 @@ namespace CNPM
             this.đăngXuấtToolStripMenuItem.Text = "Đăng Xuất";
             this.đăngXuấtToolStripMenuItem.Click += new System.EventHandler(this.đăngXuấtToolStripMenuItem_Click);
             // 
+            // txtInfo
+            // 
+            this.txtInfo.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtInfo.Location = new System.Drawing.Point(733, 0);
+            this.txtInfo.Multiline = true;
+            this.txtInfo.Name = "txtInfo";
+            this.txtInfo.Size = new System.Drawing.Size(174, 31);
+            this.txtInfo.TabIndex = 2;
+            // 
             // frmTrangChuAD
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(933, 573);
+            this.Controls.Add(this.txtInfo);
             this.Controls.Add(this.meNu);
             this.IsMdiContainer = true;
             this.MainMenuStrip = this.meNu;
@@ -105,6 +116,8 @@ namespace CNPM
             this.ResumeLayout(false);
             this.PerformLayout();
         }
+
+        private System.Windows.Forms.TextBox txtInfo;
 
         private System.Windows.Forms.ToolStripMenuItem báoCáoToolStripMenuItem;
 

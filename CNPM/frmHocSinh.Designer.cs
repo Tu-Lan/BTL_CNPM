@@ -54,6 +54,7 @@ namespace CNPM
             this.lblMaDanToc = new System.Windows.Forms.Label();
             this.txtEmail = new System.Windows.Forms.TextBox();
             this.lblEmail = new System.Windows.Forms.Label();
+            this.btnHome = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvHS)).BeginInit();
             this.SuspendLayout();
             // 
@@ -210,7 +211,7 @@ namespace CNPM
             this.lbTitle.Name = "lbTitle";
             this.lbTitle.Size = new System.Drawing.Size(168, 29);
             this.lbTitle.TabIndex = 25;
-            this.lbTitle.Text = "GIÁO VIÊN";
+            this.lbTitle.Text = "HỌC SINH";
             // 
             // dgvHS
             // 
@@ -278,11 +279,23 @@ namespace CNPM
             this.lblEmail.TabIndex = 47;
             this.lblEmail.Text = "Email";
             // 
+            // btnHome
+            // 
+            this.btnHome.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnHome.Location = new System.Drawing.Point(12, 11);
+            this.btnHome.Name = "btnHome";
+            this.btnHome.Size = new System.Drawing.Size(102, 26);
+            this.btnHome.TabIndex = 49;
+            this.btnHome.Text = "Trang Chủ";
+            this.btnHome.UseVisualStyleBackColor = true;
+            this.btnHome.Click += new System.EventHandler(this.btnHome_Click);
+            // 
             // frmHocSinh
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(961, 654);
+            this.Controls.Add(this.btnHome);
             this.Controls.Add(this.txtEmail);
             this.Controls.Add(this.lblEmail);
             this.Controls.Add(this.txtMaDT);
@@ -313,6 +326,8 @@ namespace CNPM
             this.ResumeLayout(false);
             this.PerformLayout();
         }
+
+        private System.Windows.Forms.Button btnHome;
 
         private System.Windows.Forms.TextBox txtMaDT;
         private System.Windows.Forms.Label lblMaDanToc;

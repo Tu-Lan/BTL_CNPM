@@ -5,9 +5,14 @@ namespace CNPM
 {
     public partial class frmTrangChuAD : Form
     {
-        public frmTrangChuAD()
+        private string username;
+        private string role;
+        public frmTrangChuAD(string username, string role)
         {
             InitializeComponent();
+            this.username = username;
+            this.role = role;
+            txtInfo.Text = "Tên người dùng: " + username + "\r\nVai trò: " + role;
         }
         private bool isUserWantsToExit = false;
         private void frmTrangChuAD_FormClosing(object sender, FormClosingEventArgs e)
@@ -42,7 +47,7 @@ namespace CNPM
 
         private void họcSinhToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmHocSinh hs = new frmHocSinh();
+            frmHocSinh hs = new frmHocSinh(username:username,role:role);
             this.Hide();
             hs.Show();
         }

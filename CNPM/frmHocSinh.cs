@@ -9,9 +9,13 @@ namespace CNPM
 {
     public partial class frmHocSinh : Form
     {
-        public frmHocSinh()
+        private string role;
+        private string username;
+        public frmHocSinh(string username,string role)
         {
             InitializeComponent();
+            this.username = username;
+            this.role = role;
         }
         string constr = ConfigurationManager.ConnectionStrings["QLHS"].ConnectionString;
         private void checkTrong()
@@ -227,6 +231,20 @@ namespace CNPM
         private void btnReset_Click(object sender, EventArgs e)
         {
             reset();
+        }
+        private void btnHome_Click(object sender, EventArgs e)
+        {
+            if (role == "LND001")
+            {
+                frmTrangChuAD trangChuAD = new frmTrangChuAD(username:username,role:role);
+                this.Hide();
+                trangChuAD.Show();
+            }else if (role == "LND002")
+            {
+                frmTrangChuBGH bgh = new frmTrangChuBGH(username:username,role:role);
+                this.Hide();
+                bgh.Show();
+            }
         }
     }
 }
