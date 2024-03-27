@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 
 CREATE DATABASE QuanLyHocSinh
 GO
