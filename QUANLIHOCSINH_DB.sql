@@ -1,240 +1,585 @@
-create database QUANLIHOCSINH
-USE QUANLIHOCSINH
 
--- Tao bang dang nhap (sign in)
-CREATE TABLE tblSignIn(
-	sUserName  NVARCHAR(30) PRIMARY KEY NOT NULL,
-	sPassWord NVARCHAR(30) NOT NULL,
-	sRole NVARCHAR(30) NOT NULL
-);
-SELECT * FROM dbo.tblSignIn
--- insert account 
-INSERT INTO dbo.tblSignIn
-VALUES
-(   N'admin',N'admin',N'admin'),
-(   N'thao',N'thao',N'gv'),
-(   N'minh',N'minh',N'gv'),
-(   N'thanh',N'thanh',N'hs')
+CREATE DATABASE QuanLyHocSinh
+GO
 
--- T?o b?ng tblStudent
-CREATE TABLE tblStudent (
-    PK_sStudentID varchar(10) PRIMARY KEY,
-    sFullName nvarchar(70),
-    bGender bit,
-    sAddress nvarchar(255),
-    dNgaysinh date,
-	FK_ClassID varchar(10) ,
-	FOREIGN KEY (FK_ClassID) REFERENCES tblClass(PK_sClassID)
-	
-);
+USE QuanLyHocSinh
+GO
 
--- T?o b?ng tblTeacher
-CREATE TABLE tblTeacher (
-    PK_sTeacherID varchar(10) PRIMARY KEY,
-    sName nvarchar(100),
-    bGender bit,
-    fSalary float,
-    sPhone varchar(15),
-    sAddress nvarchar(255)
-);
 
--- T?o b?ng tblSubject
-CREATE TABLE tblSubject (
-    PK_sSubjectID varchar(10) PRIMARY KEY,
-    sName nvarchar(50),
-    FK_sStudentID varchar(10),
-    FK_sTeacherID varchar(10)
-    --FOREIGN KEY (FK_sStudentID) REFERENCES tblStudent(PK_sStudentID),
-    --FOREIGN KEY (FK_sTeacherID) REFERENCES tblTeacher(PK_sTeacherID)
-);
+CREATE TABLE LOAINGUOIDUNG
+(
+	MaLoai VARCHAR(6) NOT NULL PRIMARY KEY,
+	TenLoai NVARCHAR(30) NOT NULL
+)
+INSERT INTO LOAINGUOIDUNG VALUES('LND001', N'Admin')
+INSERT INTO LOAINGUOIDUNG VALUES('LND002', N'Ban giám hiệu')
+INSERT INTO LOAINGUOIDUNG VALUES('LND003', N'Giáo viên')
 
--- T?o b?ng tblScore
-CREATE TABLE tblScore (
-    PK_sScoreID varchar(10) PRIMARY KEY,
-    FK_sSubjectID varchar(10),
-    fMidTerm float,
-    fFinal float,
-    fOral float,
-    FOREIGN KEY (FK_sSubjectID) REFERENCES tblSubject(PK_sSubjectID)
-);
+--===================================================================================================================================================
 
--- T?o b?ng tblClass
-CREATE TABLE tblClass (
-    PK_sClassID varchar(10) PRIMARY KEY,
-    sName nvarchar(100),
-    FK_sTeacherID varchar(10),
-    FK_sTermID varchar(10),
-    FOREIGN KEY (FK_sTeacherID) REFERENCES tblTeacher(PK_sTeacherID),
-    FOREIGN KEY (FK_sTermID) REFERENCES tblTerm(PK_sTermID) -- Ð?t khóa ngo?i t?i b?ng tblTerm (gi? s? b?ng h?c k? dã du?c t?o)
-);
+CREATE TABLE NGUOIDUNG
+(
+	MaNguoiDung VARCHAR(6) NOT NULL PRIMARY KEY,
+	MaLoai VARCHAR(6) NOT NULL,
+	TenNguoiDung NVARCHAR(30) NOT NULL,
+	TenDangNhap NVARCHAR(30) NOT NULL,
+	MatKhau VARCHAR(64) NOT NULL,
+	CONSTRAINT FK_NGUOIDUNG_LOAINGUOIDUNG FOREIGN KEY(MaLoai) REFERENCES LOAINGUOIDUNG(MaLoai)
+)
+INSERT INTO NGUOIDUNG VALUES('ND0001', 'LND001', N'18520339-AdminKha', 'admin', '123456')
+INSERT INTO NGUOIDUNG VALUES('ND0002', 'LND002', N'18520597-Thanh', 'thanh', '123456')
+INSERT INTO NGUOIDUNG VALUES('ND0003', 'LND003', N'18520262-Phong', 'phong', '123456')
+--===================================================================================================================================================
 
--- T?o b?ng tblTerm
-CREATE TABLE tblTerm (
-    PK_sTermID varchar(10) PRIMARY KEY,
-    sTermName nvarchar(100),
-    dStartDate date,
-    dEndDate date
-);
+CREATE TABLE DANTOC
+(
+	MaDanToc VARCHAR(6) NOT NULL PRIMARY KEY,
+	TenDanToc NVARCHAR(30) NOT NULL
+)
 
--- T?o b?ng tblClassSchedule
-CREATE TABLE tblClassSchedule (
-    PK_sSchedule varchar(10) PRIMARY KEY,
-    dDayOfWeek date,
-    iClassPeriod int,
-    sClassRoom nvarchar(10),
-    FK_sClassID varchar(10),
-    FOREIGN KEY (FK_sClassID) REFERENCES tblClass(PK_sClassID)
-);
+INSERT INTO DANTOC VALUES('DT0001', N'Kinh')
+INSERT INTO DANTOC VALUES('DT0002', N'Hoa')
+INSERT INTO DANTOC VALUES('DT0003', N'Khơ-me')
+INSERT INTO DANTOC VALUES('DT0004', N'Chăm')
 
--- T?o b?ng tblFee
-CREATE TABLE tblFee (
-    FK_sFeeID varchar(10) PRIMARY KEY,
-    FK_sStudentID varchar(10),
-    fTotalFee float,
-    dDateofFee date,
-    FOREIGN KEY (FK_sStudentID) REFERENCES tblStudent(PK_sStudentID)
-);
 
-CREATE TABLE tblSubject_Teacher (
-    FK_sSubjectID varchar(10),
-    FK_sTeacherID varchar(10),
-    PRIMARY KEY (FK_sSubjectID, FK_sTeacherID),
-    FOREIGN KEY (FK_sTeacherID) REFERENCES tblTeacher(PK_sTeacherID),
-    FOREIGN KEY (FK_sSubjectID) REFERENCES tblSubject(PK_sSubjectID)
-);
-CREATE TABLE tblSubject_Student (
-    FK_sSubjectID varchar(10),
-    FK_sStudentID varchar(10),
-    PRIMARY KEY (FK_sSubjectID, FK_sStudentID),
-    FOREIGN KEY (FK_sSubjectID) REFERENCES tblSubject(PK_sSubjectID),
-    FOREIGN KEY (FK_sStudentID) REFERENCES tblStudent(PK_sStudentID)
-);
-SELECT *FROM tblTerm
--- Insert 10 records into tblStudent
-INSERT INTO tblStudent (PK_sStudentID, sFullName, bGender, sAddress, dNgaysinh, FK_ClassID) 
+--===================================================================================================================================================
+
+CREATE TABLE NAMHOC
+(
+	MaNamHoc VARCHAR(6) NOT NULL PRIMARY KEY,
+	TenNamHoc NVARCHAR(30) NOT NULL
+)
+
+INSERT INTO NAMHOC VALUES('NH2223', '2012-2023')
+INSERT INTO NAMHOC VALUES('NH2324', '2023-2024')
+
+--===================================================================================================================================================
+
+CREATE TABLE HOCKY
+(
+	MaHocKy VARCHAR(3) NOT NULL PRIMARY KEY,
+	TenHocKy NVARCHAR(30) NOT NULL,
+	HeSo INT,
+	CONSTRAINT CK_HOCKY CHECK(CAST(RIGHT(MaHocKy, 1) AS INT) BETWEEN 1 AND 3)
+)
+
+INSERT INTO HOCKY VALUES('HK1', N'Học Kỳ 1', 1)
+INSERT INTO HOCKY VALUES('HK2', N'Học Kỳ 2', 2)
+
+--===================================================================================================================================================
+
+CREATE TABLE KHOILOP
+(
+	MaKhoiLop VARCHAR(6) NOT NULL PRIMARY KEY,
+	TenKhoiLop NVARCHAR(30) NOT NULL
+)
+
+INSERT INTO KHOILOP VALUES('KHOI6', N'Khối 6')
+INSERT INTO KHOILOP VALUES('KHOI7', N'Khối 7')
+INSERT INTO KHOILOP VALUES('KHOI8', N'Khối 8')
+INSERT INTO KHOILOP VALUES('KHOI9', N'Khối 9')
+
+--===================================================================================================================================================
+
+CREATE TABLE MONHOC
+(
+	MaMonHoc VARCHAR(6) NOT NULL PRIMARY KEY,
+	TenMonHoc NVARCHAR(30) NOT NULL,
+	SoTiet INT NOT NULL,
+	HeSo INT NOT NULL
+)
+
+INSERT INTO MONHOC VALUES('MH0001', N'Toán', 90, 2)
+INSERT INTO MONHOC VALUES('MH0002', N'Vật Lý', 60, 1)
+INSERT INTO MONHOC VALUES('MH0003', N'Hóa Học', 60, 1)
+INSERT INTO MONHOC VALUES('MH0004', N'Sinh Học', 60, 1)
+INSERT INTO MONHOC VALUES('MH0005', N'Lịch Sử', 45, 1)
+INSERT INTO MONHOC VALUES('MH0006', N'Địa Lý', 45, 1)
+INSERT INTO MONHOC VALUES('MH0007', N'Ngữ Văn', 90, 2)
+INSERT INTO MONHOC VALUES('MH0008', N'Đạo Đức', 30, 1)
+INSERT INTO MONHOC VALUES('MH0009', N'Thể Dục', 30, 1)
+
+--===================================================================================================================================================
+
+CREATE TABLE HOCLUC
+(
+	MaHocLuc VARCHAR(6) NOT NULL PRIMARY KEY,
+	TenHocLuc NVARCHAR(30) NOT NULL,
+	DiemCanDuoi FLOAT NOT NULL,
+	DiemCanTren FLOAT NOT NULL,
+	DiemKhongChe FLOAT NOT NULL,
+
+	CONSTRAINT CK_DiemCanDuoi CHECK(DiemCanDuoi BETWEEN 0 AND 10),
+	CONSTRAINT CK_DiemCanTren CHECK(DiemCanTren BETWEEN 0 AND 10),
+	CONSTRAINT CK_DiemKhongChe CHECK(DiemKhongChe BETWEEN 0 AND 10),
+)
+
+INSERT INTO HOCLUC VALUES('HL0001', N'Giỏi', 8.0, 10.0, 6.5)
+INSERT INTO HOCLUC VALUES('HL0002', N'Khá', 6.5, 7.9, 5.0)
+INSERT INTO HOCLUC VALUES('HL0003', N'Trung bình', 5.0, 6.4, 3.5)
+INSERT INTO HOCLUC VALUES('HL0004', N'Yếu', 3.5, 4.9, 2.0)
+INSERT INTO HOCLUC VALUES('HL0005', N'Kém', 0.0, 3.4, 0.0)
+
+--===================================================================================================================================================
+
+CREATE TABLE HANHKIEM
+(
+	MaHanhKiem VARCHAR(6) NOT NULL PRIMARY KEY,
+	TenHanhKiem NVARCHAR(30) NOT NULL
+)
+
+INSERT INTO HANHKIEM VALUES('HK0001', N'Tốt')
+INSERT INTO HANHKIEM VALUES('HK0002', N'Khá')
+INSERT INTO HANHKIEM VALUES('HK0003', N'Trung bình')
+INSERT INTO HANHKIEM VALUES('HK0004', N'Yếu')
+
+--===================================================================================================================================================
+
+CREATE TABLE KETQUA
+(
+	MaKetQua VARCHAR(6) NOT NULL PRIMARY KEY,
+	TenKetQua NVARCHAR(30) NOT NULL
+)
+
+INSERT INTO KETQUA VALUES('KQ0001', N'Lên lớp')
+INSERT INTO KETQUA VALUES('KQ0002', N'Thi lại')
+INSERT INTO KETQUA VALUES('KQ0003', N'Rèn luyện hè')
+INSERT INTO KETQUA VALUES('KQ0004', N'Ở lại')
+
+--===================================================================================================================================================
+
+CREATE TABLE NGHENGHIEP
+(
+	MaNghe VARCHAR(6) NOT NULL PRIMARY KEY,
+	TenNghe NVARCHAR(30) NOT NULL
+)
+
+INSERT INTO NGHENGHIEP VALUES('NN0001', N'Nội trợ')
+INSERT INTO NGHENGHIEP VALUES('NN0002', N'Giáo viên')
+INSERT INTO NGHENGHIEP VALUES('NN0003', N'Công nhân')
+INSERT INTO NGHENGHIEP VALUES('NN0004', N'Làm ruộng')
+INSERT INTO NGHENGHIEP VALUES('NN0005', N'Buôn bán')
+
+--===================================================================================================================================================
+
+CREATE TABLE GIAOVIEN
+(
+	MaGiaoVien VARCHAR(6) NOT NULL PRIMARY KEY,
+	TenGiaoVien NVARCHAR(30) NOT NULL,
+	DiaChi NVARCHAR(50) NOT NULL,
+	DienThoai NVARCHAR(15) NOT NULL,
+	MaMonHoc VARCHAR(6) NOT NULL,
+	CONSTRAINT FK_GIAOVIEN_MONHOC FOREIGN KEY(MaMonHoc) REFERENCES MONHOC(MaMonHoc)
+)
+
+INSERT INTO GIAOVIEN VALUES('GV0001', N'Nguyễn Hoàng Trung', N'100 Trần Hưng Đạo, HN', '0975058876', 'MH0001')
+INSERT INTO GIAOVIEN VALUES('GV0002', N'Phan Hồng Nhung', N'Lac Long Quân, HN', '0976630315', 'MH0002')
+INSERT INTO GIAOVIEN VALUES('GV0003', N'Huỳnh Thanh Trúc', N'10C Nguyễn An Ninh, HN', '0699015456', 'MH0003')
+INSERT INTO GIAOVIEN VALUES('GV0004', N'Lam Trung Toan', N'Long Bien, HN', '0845241566', 'MH0004')
+INSERT INTO GIAOVIEN VALUES('GV0005', N'Huynh Túc Trí', N'Minh Khai HBT, HN', '0123456789', 'MH0005')
+INSERT INTO GIAOVIEN VALUES('GV0006', N'Lê Thi Minh Nguyệt', N'Long Bien, HN', '0123456789', 'MH0006')
+
+--===================================================================================================================================================
+
+CREATE TABLE HOCSINH
+(
+	MaHocSinh VARCHAR(6) NOT NULL PRIMARY KEY,
+	HoTen NVARCHAR(30) NOT NULL,
+	GioiTinh BIT,
+	NgaySinh DATETIME,
+	DiaChi NVARCHAR(50) NOT NULL,
+	MaDanToc VARCHAR(6) NOT NULL,
+	Email NVARCHAR(50) NOT NULL UNIQUE,
+ 
+	CONSTRAINT FK_HOCSINH_DANTOC FOREIGN KEY(MaDanToc) REFERENCES DANTOC(MaDanToc),
+)
+INSERT INTO HOCSINH VALUES ('HS0001', N'Nguyễn Văn Tú', 0, '2005-02-01', N'Hà Nội', 'DT0001', 'hs001@gmail.com');
+INSERT INTO HOCSINH VALUES('HS0010', N'Trương Thị Nga', '1', '01/02/2005', N'Bắc Ninh', 'DT0001', 'hs010@gmail.com')
+INSERT INTO HOCSINH VALUES ('HS0002', N'Nguyễn Ngọc An', 0, '2005-02-01', N'Bắc Ninh', 'DT0001', 'hs002@gmail.com');
+INSERT INTO HOCSINH VALUES ('HS0003', N'Lê Hoàng Anh', 0, '2005-04-15', N'Hưng Yên', 'DT0001', 'hs003@gmail.com');
+INSERT INTO HOCSINH VALUES ('HS0004', N'Huỳnh Thiên Chí', 0, '2004-01-02', N'Ninh Bình', 'DT0001', 'hs004@gmail.com');
+INSERT INTO HOCSINH VALUES ('HS0005', N'Lý Ngọc Duy', 0, '2005-01-02', N'Hà Nội', 'DT0001', 'hs005@gmail.com');
+INSERT INTO HOCSINH VALUES ('HS0006', N'Huỳnh Ngọc Điệp', 1, '2005-01-02', N'Bắc Ninh', 'DT0001', 'hs006@gmail.com');
+INSERT INTO HOCSINH VALUES ('HS0007', N'Trần Thị Huệ', 1, '2005-04-15', N'Hưng Yên', 'DT0001', 'hs007@gmail.com');
+INSERT INTO HOCSINH VALUES ('HS0008', N'Nguyễn Thanh Huy', 0, '2004-01-02', N'Ninh Bình', 'DT0001', 'hs008@gmail.com');
+INSERT INTO HOCSINH VALUES ('HS0009', N'Trần Phước Lập', 0, '2005-01-02', N'Hà Nội', 'DT0001', 'hs009@gmail.com');
+INSERT INTO HOCSINH VALUES('HS0011', N'Nguyễn Thị Nga', '1', '04/15/2005', N'Hưng Yên', 'DT0001', 'hs011@gmail.com')
+INSERT INTO HOCSINH VALUES('HS0012', N'Trần Thị Hồng Nghi', '1', '01/02/2004', N'Ninh Bình', 'DT0001', 'hs012@gmail.com')
+INSERT INTO HOCSINH VALUES('HS0013', N'Huỳnh Thị Mỹ Ngọc', '1', '01/02/2005', N'Hà Nội', 'DT0001', 'hs013@gmail.com')
+INSERT INTO HOCSINH VALUES('HS0014', N'Trần Thị My Nhân', '1', '01/02/2005', N'Bắc Ninh', 'DT0001', 'hs014@gmail.com')
+INSERT INTO HOCSINH VALUES('HS0015', N'Trương Thị Ngoc Nhung', '1', '04/15/2005', N'Hưng Yên', 'DT0001', 'hs015@gmail.com')
+INSERT INTO HOCSINH VALUES('HS0016', N'Huỳnh Quốc Phuong', '0', '01/02/2004', N'Ninh Bình', 'DT0001', 'hs016@gmail.com')
+INSERT INTO HOCSINH VALUES('HS0017', N'Lý Ngọc Phương', '1', '01/02/2005', N'Hà Nội', 'DT0001', 'hs017@gmail.com')
+INSERT INTO HOCSINH VALUES('HS0018', N'Nguyễn Thị Phương', '1', '01/02/2005', N'Bắc Ninh', 'DT0001', 'hs018@gmail.com')
+INSERT INTO HOCSINH VALUES('HS0019', N'Nguyễn Phú Quốc', '0', '04/15/2005', N'Hưng Yên', 'DT0001', 'hs019@gmail.com')
+INSERT INTO HOCSINH VALUES('HS0020', N'Võ Thiên Quốc', '0', '01/02/2004', N'Ninh Bình', 'DT0001', 'hs020@gmail.com')
+INSERT INTO HOCSINH VALUES('HS0021', N'Trần Văn Rang', '0', '01/02/2004', N'Hà Nội', 'DT0001', 'hs021@gmail.com')
+INSERT INTO HOCSINH VALUES('HS0022', N'Võ Hưu Tanh', '0', '01/02/2004', N'Bắc Ninh', 'DT0001', 'hs022@gmail.com')
+INSERT INTO HOCSINH VALUES('HS0023', N'Lê Minh Tâm', '0', '04/15/2004', N'Hưng Yên', 'DT0001', 'hs023@gmail.com')
+INSERT INTO HOCSINH VALUES('HS0024', N'Nguyễn Đức Tâm', '0', '01/02/2003', N'Ninh Bình', 'DT0001', 'hs024@gmail.com')
+INSERT INTO HOCSINH VALUES('HS0025', N'Nguyễn Thanh Tâm', '0', '01/02/2004', N'Hà Nội', 'DT0001', 'hs025@gmail.com')
+INSERT INTO HOCSINH VALUES('HS0026', N'Trần Ngọc Minh Tân', '0', '01/02/2004', N'Bắc Ninh', 'DT0001', 'hs026@gmail.com')
+INSERT INTO HOCSINH VALUES('HS0027', N'Dương Kim Thanh', '1', '04/15/2004', N'Hưng Yên', 'DT0001', 'hs027@gmail.com')
+INSERT INTO HOCSINH VALUES('HS0028', N'Vang Si Thanh', '0', '01/02/2004', N'Ninh Bình', 'DT0001', 'hs028@gmail.com')
+INSERT INTO HOCSINH VALUES('HS0029', N'Đỗ Thị Bích Thảo', '1', '01/02/2004', N'Hà Nội', 'DT0001', 'hs029@gmail.com')
+INSERT INTO HOCSINH VALUES('HS0030', N'Hồ Minh Thiên', '0', '01/02/2004', N'Bắc Ninh', 'DT0001', 'hs030@gmail.com')
+INSERT INTO HOCSINH VALUES('HS0031', N'Nguyễn Thị Anh Thư', '1', '04/15/2004', N'Hưng Yên', 'DT0001', 'hs031@gmail.com')
+INSERT INTO HOCSINH VALUES('HS0032', N'Phạm Nguyễn B.Trinh', '1', '01/02/2003', N'Ninh Bình', 'DT0001', 'hs032@gmail.com')
+INSERT INTO HOCSINH VALUES('HS0033', N'Võ Ngọc Trinh', '1', '01/02/2004', N'Hà Nội', 'DT0001', 'hs033@gmail.com')
+INSERT INTO HOCSINH VALUES('HS0034', N'Nguyễn Huỳnh Minh Trí', '0', '01/02/2004', N'Bắc Ninh', 'DT0001', 'hs034@gmail.com')
+INSERT INTO HOCSINH VALUES('HS0035', N'Đỗ Xuân Trinh', '0', '04/15/2004', N'Hưng Yên', 'DT0001', 'hs035@gmail.com')
+INSERT INTO HOCSINH VALUES('HS0036', N'Nguyễn Hiếu Trung', '0', '01/02/2003', N'Ninh Bình', 'DT0001', 'hs036@gmail.com')
+INSERT INTO HOCSINH VALUES('HS0037', N'Nguyễn Thanh Trung', '0', '01/02/2004', N'Hà Nội', 'DT0001', 'hs037@gmail.com')
+INSERT INTO HOCSINH VALUES('HS0038', N'Trần Thanh Trúc', '1', '01/02/2004', N'Bắc Ninh', 'DT0001', 'hs038@gmail.com')
+INSERT INTO HOCSINH VALUES('HS0039', N'Cao Minh Tuấn', '0', '04/15/2004', N'Hưng Yên', 'DT0001', 'hs039@gmail.com')
+INSERT INTO HOCSINH VALUES('HS0040', N'Nguyễn Hoang Tuấn', '0', '01/02/2004', N'Ninh Bình', 'DT0001', 'hs040@gmail.com')
+INSERT INTO HOCSINH VALUES('HS0041', N'Trương Minh Tuyên', '0', '01/02/2003', N'Hà Nội', 'DT0001', 'hs041@gmail.com')
+INSERT INTO HOCSINH VALUES('HS0042', N'Lê Thanh Tung', '0', '01/02/2003', N'Bắc Ninh', 'DT0001', 'hs042@gmail.com')
+INSERT INTO HOCSINH VALUES('HS0043', N'Phạm Thị Bích Vi', '1', '04/15/2003', N'Hưng Yên', 'DT0001', 'hs043@gmail.com')
+INSERT INTO HOCSINH VALUES('HS0044', N'Đặng Quang Vinh', '0', '01/02/2003', N'Ninh Bình', 'DT0001', 'hs044@gmail.com')
+INSERT INTO HOCSINH VALUES('HS0045', N'Âu Ngọc Vũ', '0', '01/02/2003', N'Hà Nội', 'DT0001', 'hs045@gmail.com')
+INSERT INTO HOCSINH VALUES('HS0046', N'Hồ Thanh Vũ', '0', '01/02/2002', N'Bắc Ninh', 'DT0001', 'hs046@gmail.com')
+INSERT INTO HOCSINH VALUES('HS0047', N'Phan Quốc Vương', '0', '04/15/2003', N'Hưng Yên', 'DT0001', 'hs047@gmail.com')
+
+--===================================================================================================================================================
+
+CREATE TABLE LOP
+(
+	MaLop VARCHAR(10) NOT NULL PRIMARY KEY,
+	TenLop NVARCHAR(30) NOT NULL,
+	MaKhoiLop VARCHAR(6) NOT NULL,
+	MaNamHoc VARCHAR(6) NOT NULL,
+	SiSo INT NOT NULL,
+	MaGiaoVien VARCHAR(6) NOT NULL,
+ 
+	CONSTRAINT FK_LOP_KHOILOP FOREIGN KEY(MaKhoiLop) REFERENCES KHOILOP(MaKhoiLop),
+	CONSTRAINT FK_LOP_NAMHOC FOREIGN KEY(MaNamHoc) REFERENCES NAMHOC(MaNamHoc),
+	CONSTRAINT FK_LOP_GIAOVIEN FOREIGN KEY(MaGiaoVien) REFERENCES GIAOVIEN(MaGiaoVien)
+)
+SELECT*FROM dbo.LOP
+INSERT INTO LOP VALUES('LOP6A2223', '6A', 'KHOI6', 'NH2223', 35, 'GV0006')
+INSERT INTO LOP VALUES('LOP6B2223', '6B', 'KHOI6', 'NH2223', 36, 'GV0005')
+INSERT INTO LOP VALUES('LOP7A2223', '7A', 'KHOI7', 'NH2223', 34, 'GV0004')
+INSERT INTO LOP VALUES('LOP7B2223', '7B', 'KHOI7', 'NH2223', 37, 'GV0003')
+INSERT INTO LOP VALUES('LOP8A2223', '8A', 'KHOI8', 'NH2223', 38, 'GV0002')
+INSERT INTO LOP VALUES('LOP8B2223', '8B', 'KHOI8', 'NH2223', 39, 'GV0001')
+INSERT INTO LOP VALUES('LOP9A2223', '9A', 'KHOI9', 'NH2223', 39, 'GV0001')
+INSERT INTO LOP VALUES('LOP9B2223', '9B', 'KHOI9', 'NH2223', 38, 'GV0002')
+INSERT INTO LOP VALUES('LOP6A2324', '6A', 'KHOI6', 'NH2324', 35, 'GV0003')
+INSERT INTO LOP VALUES('LOP7A2324', '7A', 'KHOI7', 'NH2324', 40, 'GV0004')
+INSERT INTO LOP VALUES('LOP8A2324', '8A', 'KHOI8', 'NH2324', 38, 'GV0005')
+INSERT INTO LOP VALUES('LOP9A2324', '9A', 'KHOI9', 'NH2324', 38, 'GV0006')
+
+--===================================================================================================================================================
+
+CREATE TABLE PHANLOP
+(
+	MaNamHoc VARCHAR(6) NOT NULL,
+	MaKhoiLop VARCHAR(6) NOT NULL,
+	MaLop VARCHAR(10) NOT NULL,
+	MaHocSinh VARCHAR(6) NOT NULL,
+	PRIMARY KEY(MaNamHoc, MaKhoiLop, MaLop, MaHocSinh),
+
+	CONSTRAINT FK_PHANLOP_NAMHOC FOREIGN KEY(MaNamHoc) REFERENCES NAMHOC(MaNamHoc),
+	CONSTRAINT FK_PHANLOP_KHOI FOREIGN KEY(MaKhoiLop) REFERENCES KHOILOP(MaKhoiLop),
+	CONSTRAINT FK_PHANLOP_LOP FOREIGN KEY(MaLop) REFERENCES LOP(MaLop),
+	CONSTRAINT FK_PHANLOP_HOCSINH FOREIGN KEY(MaHocSinh) REFERENCES HOCSINH(MaHocSinh)
+)
+SELECT*FROM dbo.PHANLOP
+--INSERT LOP6A
+INSERT INTO PHANLOP VALUES('NH2223', 'KHOI6', 'LOP6A2223', 'HS0001')
+INSERT INTO PHANLOP VALUES('NH2223', 'KHOI6', 'LOP6A2223', 'HS0002')
+INSERT INTO PHANLOP VALUES('NH2223', 'KHOI6', 'LOP6A2223', 'HS0003')
+
+--INSERT LOP6B
+INSERT INTO PHANLOP VALUES('NH2223', 'KHOI6', 'LOP6B2223', 'HS0007')
+INSERT INTO PHANLOP VALUES('NH2223', 'KHOI6', 'LOP6B2223', 'HS0008')
+INSERT INTO PHANLOP VALUES('NH2223', 'KHOI6', 'LOP6B2223', 'HS0009')
+
+--INSERT LOP7A
+INSERT INTO PHANLOP VALUES('NH2223', 'KHOI7', 'LOP7A2223', 'HS0013')
+INSERT INTO PHANLOP VALUES('NH2223', 'KHOI7', 'LOP7A2223', 'HS0014')
+INSERT INTO PHANLOP VALUES('NH2223', 'KHOI7', 'LOP7A2223', 'HS0015')
+
+--INSERT LOP7B
+INSERT INTO PHANLOP VALUES('NH2223', 'KHOI7', 'LOP7B2223', 'HS0019')
+INSERT INTO PHANLOP VALUES('NH2223', 'KHOI7', 'LOP7B2223', 'HS0020')
+INSERT INTO PHANLOP VALUES('NH2223', 'KHOI7', 'LOP7B2223', 'HS0021')
+INSERT INTO PHANLOP VALUES('NH2223', 'KHOI7', 'LOP7B2223', 'HS0022')
+INSERT INTO PHANLOP VALUES('NH2223', 'KHOI7', 'LOP7B2223', 'HS0023')
+INSERT INTO PHANLOP VALUES('NH2223', 'KHOI7', 'LOP7B2223', 'HS0024')
+--INSERT LOP8A
+INSERT INTO PHANLOP VALUES('NH2223', 'KHOI8', 'LOP8A2223', 'HS0025')
+INSERT INTO PHANLOP VALUES('NH2223', 'KHOI8', 'LOP8A2223', 'HS0026')
+INSERT INTO PHANLOP VALUES('NH2223', 'KHOI8', 'LOP8A2223', 'HS0027')
+INSERT INTO PHANLOP VALUES('NH2223', 'KHOI8', 'LOP8A2223', 'HS0028')
+INSERT INTO PHANLOP VALUES('NH2223', 'KHOI8', 'LOP8A2223', 'HS0029')
+INSERT INTO PHANLOP VALUES('NH2223', 'KHOI8', 'LOP8A2223', 'HS0030')
+--INSERT LOP8B
+INSERT INTO PHANLOP VALUES('NH2223', 'KHOI8', 'LOP8B2223', 'HS0031')
+INSERT INTO PHANLOP VALUES('NH2223', 'KHOI8', 'LOP8B2223', 'HS0032')
+INSERT INTO PHANLOP VALUES('NH2223', 'KHOI8', 'LOP8B2223', 'HS0033')
+INSERT INTO PHANLOP VALUES('NH2223', 'KHOI8', 'LOP8B2223', 'HS0034')
+INSERT INTO PHANLOP VALUES('NH2223', 'KHOI8', 'LOP8B2223', 'HS0035')
+INSERT INTO PHANLOP VALUES('NH2223', 'KHOI8', 'LOP8B2223', 'HS0036')
+--INSERT LOP9A
+INSERT INTO PHANLOP VALUES('NH2223', 'KHOI9', 'LOP9A2223', 'HS0037')
+INSERT INTO PHANLOP VALUES('NH2223', 'KHOI9', 'LOP9A2223', 'HS0038')
+INSERT INTO PHANLOP VALUES('NH2223', 'KHOI9', 'LOP9A2223', 'HS0039')
+INSERT INTO PHANLOP VALUES('NH2223', 'KHOI9', 'LOP9A2223', 'HS0040')
+INSERT INTO PHANLOP VALUES('NH2223', 'KHOI9', 'LOP9A2223', 'HS0041')
+INSERT INTO PHANLOP VALUES('NH2223', 'KHOI9', 'LOP9A2223', 'HS0042')
+--INSERT LOP9B
+INSERT INTO PHANLOP VALUES('NH2223', 'KHOI9', 'LOP9B2223', 'HS0043')
+INSERT INTO PHANLOP VALUES('NH2223', 'KHOI9', 'LOP9B2223', 'HS0044')
+INSERT INTO PHANLOP VALUES('NH2223', 'KHOI9', 'LOP9B2223', 'HS0045')
+INSERT INTO PHANLOP VALUES('NH2223', 'KHOI9', 'LOP9B2223', 'HS0046')
+INSERT INTO PHANLOP VALUES('NH2223', 'KHOI9', 'LOP9B2223', 'HS0047')
+
+--===================================================================================================================================================
+
+CREATE TABLE PHANCONG
+(
+	STT INT IDENTITY PRIMARY KEY,
+	MaNamHoc VARCHAR(6) NOT NULL,
+	MaLop VARCHAR(10) NOT NULL,
+	MaMonHoc VARCHAR(6) NOT NULL,
+	MaGiaoVien VARCHAR(6) NOT NULL,
+ 
+	CONSTRAINT FK_PHANCONG_NAMHOC FOREIGN KEY(MaNamHoc) REFERENCES NAMHOC(MaNamHoc),
+	CONSTRAINT FK_PHANCONG_LOP FOREIGN KEY(MaLop) REFERENCES LOP(MaLop),
+	CONSTRAINT FK_PHANCONG_MONHOC FOREIGN KEY(MaMonHoc) REFERENCES MONHOC(MaMonHoc),
+	CONSTRAINT FK_PHANCONG_GIAOVIEN FOREIGN KEY(MaGiaoVien) REFERENCES GIAOVIEN(MaGiaoVien)
+)
+SELECT*FROM dbo.GIAOVIEN
+INSERT INTO PHANCONG VALUES('NH2223', 'LOP6A2223', 'MH0001', 'GV0001')
+INSERT INTO PHANCONG VALUES('NH2223', 'LOP6B2223', 'MH0002', 'GV0002')
+INSERT INTO PHANCONG VALUES('NH2223', 'LOP7A2223', 'MH0003', 'GV0003')
+INSERT INTO PHANCONG VALUES('NH2223', 'LOP7B2223', 'MH0004', 'GV0004')
+
+INSERT INTO PHANCONG VALUES('NH2223', 'LOP8A2223', 'MH0001', 'GV0001')
+INSERT INTO PHANCONG VALUES('NH2223', 'LOP8B2223', 'MH0002', 'GV0002')
+INSERT INTO PHANCONG VALUES('NH2223', 'LOP9A2223', 'MH0003', 'GV0003')
+INSERT INTO PHANCONG VALUES('NH2223', 'LOP9B2223', 'MH0004', 'GV0004')
+
+INSERT INTO PHANCONG VALUES('NH2223', 'LOP6A2223', 'MH0001', 'GV0001')
+INSERT INTO PHANCONG VALUES('NH2223', 'LOP7A2223', 'MH0002', 'GV0002')
+INSERT INTO PHANCONG VALUES('NH2223', 'LOP8A2223', 'MH0003', 'GV0003')
+INSERT INTO PHANCONG VALUES('NH2223', 'LOP9A2223', 'MH0004', 'GV0004')
+
+--===================================================================================================================================================
+
+CREATE TABLE LOAIDIEM
+(
+	MaLoai VARCHAR(6) NOT NULL PRIMARY KEY,
+	TenLoai NVARCHAR(30) NOT NULL,
+	HeSo INT NOT NULL
+)
+
+INSERT INTO LOAIDIEM VALUES('LD0001', N'Kiểm tra miệng', 1)
+INSERT INTO LOAIDIEM VALUES('LD0002', N'Kiểm tra 15 phút', 1)
+INSERT INTO LOAIDIEM VALUES('LD0003', N'Kiểm tra 1 tiết', 2)
+INSERT INTO LOAIDIEM VALUES('LD0004', N'Thi học kỳ', 1)
+
+--===================================================================================================================================================
+
+CREATE TABLE DIEM
+(
+	STT INT IDENTITY PRIMARY KEY,
+	MaHocSinh VARCHAR(6) NOT NULL,
+	MaMonHoc VARCHAR(6) NOT NULL,
+	MaHocKy VARCHAR(3) NOT NULL,
+	MaNamHoc VARCHAR(6) NOT NULL,
+	MaLop VARCHAR(10) NOT NULL,
+	MaLoai VARCHAR(6) NOT NULL,
+	Diem FLOAT NOT NULL,
+ 
+	CONSTRAINT FK_DIEM_HOCSINH FOREIGN KEY(MaHocSinh) REFERENCES HOCSINH(MaHocSinh),
+	CONSTRAINT FK_DIEM_MONHOC FOREIGN KEY(MaMonHoc) REFERENCES MONHOC(MaMonHoc),
+	CONSTRAINT FK_DIEM_HOCKY FOREIGN KEY(MaHocKy) REFERENCES HOCKY(MaHocKy),
+	CONSTRAINT FK_DIEM_NAMHOC FOREIGN KEY(MaNamHoc) REFERENCES NAMHOC(MaNamHoc),
+	CONSTRAINT FK_DIEM_LOP FOREIGN KEY(MaLop) REFERENCES LOP(MaLop),
+	CONSTRAINT FK_DIEM_LOAIDIEM FOREIGN KEY(MaLoai) REFERENCES LOAIDIEM(MaLoai),
+	CONSTRAINT CK_DIEM CHECK(Diem BETWEEN 0 AND 10)
+)
+
+--===================================================================================================================================================
+
+CREATE TABLE KQ_HOCSINH_MONHOC
+(
+	MaHocSinh VARCHAR(6) NOT NULL,
+	MaLop VARCHAR(10) NOT NULL,
+	MaNamHoc VARCHAR(6) NOT NULL,
+	MaMonHoc VARCHAR(6) NOT NULL,
+	MaHocKy VARCHAR(3) NOT NULL,
+	DiemMiengTB FLOAT NOT NULL,
+	Diem15PhutTB FLOAT NOT NULL,
+	Diem45PhutTB FLOAT NOT NULL,
+	DiemThi FLOAT NOT NULL,
+	DiemTBHK FLOAT NOT NULL,
+	PRIMARY KEY(MaHocSinh, MaLop, MaNamHoc, MaMonHoc, MaHocKy),
+
+	CONSTRAINT FK_KQHSMH_HOCSINH FOREIGN KEY(MaHocSinh) REFERENCES HOCSINH(MaHocSinh),
+	CONSTRAINT FK_KQHSMH_LOP FOREIGN KEY(MaLop) REFERENCES LOP(MaLop),
+	CONSTRAINT FK_KQHSMH_NAMHOC FOREIGN KEY(MaNamHoc) REFERENCES NAMHOC(MaNamHoc),
+	CONSTRAINT FK_KQHSMH_MONHOC FOREIGN KEY(MaMonHoc) REFERENCES MONHOC(MaMonHoc),
+	CONSTRAINT FK_KQHSMH_HOCKY FOREIGN KEY(MaHocKy) REFERENCES HOCKY(MaHocKy),
+
+	CONSTRAINT CK_DiemMiengTB CHECK(DiemMiengTB BETWEEN 0 AND 10),
+	CONSTRAINT CK_Diem15PhutTB CHECK(Diem15PhutTB BETWEEN 0 AND 10),
+	CONSTRAINT CK_Diem45PhutTB CHECK(Diem45PhutTB BETWEEN 0 AND 10),
+	CONSTRAINT CK_DiemThi CHECK(DiemThi BETWEEN 0 AND 10),
+	CONSTRAINT CK_DiemTBHK CHECK(DiemTBHK BETWEEN 0 AND 10),
+)
+
+--===================================================================================================================================================
+
+CREATE TABLE KQ_HOCSINH_CANAM
+(
+	MaHocSinh VARCHAR(6) NOT NULL,
+	MaLop VARCHAR(10) NOT NULL,
+	MaNamHoc VARCHAR(6) NOT NULL,
+	MaHocLuc VARCHAR(6) NOT NULL,
+	MaHanhKiem VARCHAR(6) NOT NULL,
+	MaKetQua VARCHAR(6) NOT NULL,
+	DiemTBHK1 FLOAT NOT NULL,
+	DiemTBHK2 FLOAT NOT NULL,
+	DiemTBCN FLOAT NOT NULL, 
+	PRIMARY KEY(MaHocSinh, MaLop, MaNamHoc),
+ 
+	CONSTRAINT FK_KQHSCN_HOCSINH FOREIGN KEY(MaHocSinh) REFERENCES HOCSINH(MaHocSinh),
+	CONSTRAINT FK_KQHSCN_LOP FOREIGN KEY(MaLop) REFERENCES LOP(MaLop),
+	CONSTRAINT FK_KQHSCN_NAMHOC FOREIGN KEY(MaNamHoc) REFERENCES NAMHOC(MaNamHoc),
+	CONSTRAINT FK_KQHSCN_HOCLUC FOREIGN KEY(MaHocLuc) REFERENCES HOCLUC(MaHocLuc),
+	CONSTRAINT FK_KQHSCN_HANHKIEM FOREIGN KEY(MaHanhKiem) REFERENCES HANHKIEM(MaHanhKiem),
+	CONSTRAINT FK_KQHSCN_KETQUA FOREIGN KEY(MaKetQua) REFERENCES KETQUA(MaKetQua),
+
+	CONSTRAINT CK_DiemTBHK1 CHECK(DiemTBHK1 BETWEEN 0 AND 10),
+	CONSTRAINT CK_DiemTBHK2 CHECK(DiemTBHK2 BETWEEN 0 AND 10),
+	CONSTRAINT CK_DiemTBCN CHECK(DiemTBCN BETWEEN 0 AND 10),
+)
+SELECT*FROM dbo.PHANLOP
+/*INSERT INTO KQ_HOCSINH_MONHOC (MaHocSinh, MaLop, MaNamHoc, MaMonHoc, MaHocKy, DiemMiengTB, Diem15PhutTB, Diem45PhutTB, DiemThi, DiemTBHK)
+
 VALUES 
-('STU001', 'Nguyen Van A', 1, '123 ABC Street', '2000-01-01', 'CLS006'),
-('STU002', 'Tran Thi B', 0, '456 XYZ Street', '2001-02-02', 'CLS005'),
-('STU003', 'Le Van C', 1, '789 DEF Street', '2002-03-03', 'CLS001'),
-('STU004', 'Pham Thi D', 0, '321 GHI Street', '2003-04-04', 'CLS002'),
-('STU005', 'Hoang Van E', 1, '654 JKL Street', '2004-05-05', 'CLS009'),
-('STU006', 'Vo Thi F', 0, '987 MNO Street', '2005-06-06', 'CLS001'),
-('STU007', 'Tran Van G', 1, '159 PQR Street', '2006-07-07', 'CLS001'),
-('STU008', 'Le Thi H', 0, '357 STU Street', '2007-08-08', 'CLS005'),
-('STU009', 'Nguyen Van I', 1, '258 VWX Street', '2008-09-09', 'CLS003'),
-('STU010', 'Pham Van K', 1, '852 YZA Street', '2009-10-10', 'CLS002');
+-- LỚP 6A
+--hs01
+('HS0001','LOP6A2223','NH2223','MH001','HK1',8.5, 7,9,8,8),
+('HS0001','LOP6A2223','NH2223','MH002','HK1',8.5, 7,9,8,8),
+('HS0001','LOP6A2223','NH2223','MH003','HK1',8.5, 7,9,8,8),
+('HS0001','LOP6A2223','NH2223','MH004','HK1',8.5, 7,9,8,8),
+('HS0001','LOP6A2223','NH2223','MH005','HK1',8.5, 7,9,8,8),
+('HS0001','LOP6A2223','NH2223','MH006','HK1',8.5, 7,9,8,8),
+('HS0001','LOP6A2223','NH2223','MH007','HK1',8.5, 7,9,8,8),
+*/
 
--- Insert 10 records into tblTeacher
-INSERT INTO tblTeacher (PK_sTeacherID, sName, bGender, fSalary, sPhone, sAddress) 
-VALUES 
-('T1', 'Nguyen Van Teacher', 1, 2000.50, '123456789', '123 Teacher Street'),
-('T2', 'Tran Thi Teacher', 0, 1800.75, '987654321', '456 Teacher Street'),
-('T3', 'Le Van Teacher', 1, 2200.25, '456123789', '789 Teacher Street'),
-('T4', 'Pham Thi Teacher', 0, 1900.30, '789456123', '321 Teacher Street'),
-('T5', 'Hoang Van Teacher', 1, 2050.80, '654987321', '654 Teacher Street'),
-('T6', 'Vo Thi Teacher', 0, 1950.40, '987321654', '987 Teacher Street'),
-('T7', 'Tran Van Teacher', 1, 2100.60, '159357258', '159 Teacher Street'),
-('T8', 'Le Thi Teacher', 0, 1850.70, '357258159', '357 Teacher Street'),
-('T9', 'Nguyen Van T', 1, 2250.90, '258159357', '258 Teacher Street'),
-('T10', 'Pham Van T', 1, 2300.95, '852963147', '852 Teacher Street');
+--===================================================================================================================================================
 
--- Insert 10 records into tblSubject
-INSERT INTO tblSubject (PK_sSubjectID, sName, FK_sStudentID, FK_sTeacherID) 
-VALUES 
-('SUB1', 'Math', 'STU001', 'T1'),
-('SUB2', 'Physics', 'STU003', 'T2'),
-('SUB3', 'Chemistry', 'STU003', 'T3'),
-('SUB4', 'Biology', 'STU005', 'T4'),
-('SUB5', 'History', 'STU005', 'T5'),
-('SUB6', 'Geography', 'STU004', 'T6'),
-('SUB7', 'Literature', 'STU004', 'T7'),
-('SUB8', 'English', 'STU008', 'T8'),
-('SUB9', 'Computer Science', 'STU009', 'T9'),
-('SUB10', 'Art', 'STU010', 'T10');
+CREATE TABLE KQ_LOPHOC_MONHOC
+(
+	MaLop VARCHAR(10) NOT NULL,
+	MaNamHoc VARCHAR(6) NOT NULL,
+	MaMonHoc VARCHAR(6) NOT NULL,
+	MaHocKy VARCHAR(3) NOT NULL,
+	SoLuongDat INT NOT NULL,
+	TiLe FLOAT NOT NULL,
+	PRIMARY KEY(MaLop, MaNamHoc, MaMonHoc, MaHocKy),
 
--- Insert 10 records into tblScore
-INSERT INTO tblScore (PK_sScoreID, FK_sSubjectID, fMidTerm, fFinal, fOral) 
-VALUES 
-('SCORE1', 'SUB1', 8.5, 9.0, 8.0),
-('SCORE2', 'SUB2', 7.0, 8.5, 9.0),
-('SCORE3', 'SUB3', 9.0, 8.0, 8.5),
-('SCORE4', 'SUB4', 8.0, 9.0, 7.5),
-('SCORE5', 'SUB5', 9.5, 9.0, 8.5),
-('SCORE6', 'SUB6', 8.0, 8.0, 8.0),
-('SCORE7', 'SUB7', 7.5, 9.0, 9.0),
-('SCORE8', 'SUB8', 8.5, 8.5, 8.0),
-('SCORE9', 'SUB9', 9.0, 9.0, 9.0),
-('SCORE10', 'SUB10', 8.0, 8.5, 8.5);
+	CONSTRAINT FK_KQLHMH_LOP FOREIGN KEY(MaLop) REFERENCES LOP(MaLop),
+	CONSTRAINT FK_KQLHMH_NAMHOC FOREIGN KEY(MaNamHoc) REFERENCES NAMHOC(MaNamHoc),
+	CONSTRAINT FK_KQLHMH_MONHOC FOREIGN KEY(MaMonHoc) REFERENCES MONHOC(MaMonHoc),
+	CONSTRAINT FK_KQLHMH_HOCKY FOREIGN KEY(MaHocKy) REFERENCES HOCKY(MaHocKy),
+)
 
--- Insert 10 records into tblClass
-INSERT INTO tblClass (PK_sClassID, sName, FK_sTeacherID, FK_sTermID) 
-VALUES 
-('CLS001', 'Class A', 'T1', 'TERM1'),
-('CLS002', 'Class B', 'T2', 'TERM1'),
-('CLS003', 'Class C', 'T3', 'TERM2'),
-('CLS004', 'Class D', 'T4', 'TERM2'),
-('CLS005', 'Class E', 'T5', 'TERM3'),
-('CLS006', 'Class F', 'T6', 'TERM3'),
-('CLS007', 'Class G', 'T7', 'TERM4'),
-('CLS008', 'Class H', 'T8', 'TERM4'),
-('CLS009', 'Class I', 'T9', 'TERM5'),
-('CLS010', 'Class J', 'T10', 'TERM5');
+--===================================================================================================================================================
 
--- Insert 10 records into tblTerm
-INSERT INTO tblTerm (PK_sTermID, sTermName, dStartDate, dEndDate) 
-VALUES 
-('TERM1', 'Term 1', '2023-09-01', '2023-12-20'),
-('TERM2', 'Term 2', '2024-01-10', '2024-04-30'),
-('TERM3', 'Term 3', '2024-05-15', '2024-08-31'),
-('TERM4', 'Term 4', '2024-09-10', '2024-12-30'),
-('TERM5', 'Term 5', '2008-01-10', '2008-04-30'),
-('TERM6', 'Term 6', '2014-09-01', '2014-12-20'),
-('TERM7', 'Term 7', '2015-01-10', '2015-04-30'),
-('TERM8', 'Term 8', '2017-05-15', '2017-08-31'),
-('TERM9', 'Term 9', '2018-09-10', '2018-12-30'),
-('TERM10', 'Term 10', '2019-01-10', '2019-04-30');
+CREATE TABLE KQ_LOPHOC_HOCKY
+(
+	MaLop VARCHAR(10) NOT NULL,
+	MaNamHoc VARCHAR(6) NOT NULL,
+	MaHocKy VARCHAR(3) NOT NULL,
+	SoLuongDat INT NOT NULL,
+	TiLe FLOAT NOT NULL,
+	PRIMARY KEY(MaLop, MaNamHoc, MaHocKy),
 
--- Insert 10 records into tblClassSchedule
--- Inserting records into tblClassSchedule
-INSERT INTO tblClassSchedule (PK_sSchedule, dDayOfWeek, iClassPeriod, sClassRoom, FK_sClassID)
-VALUES
-('CS001', '2024-03-25', 1, 'A101', 'CLS001'),
-('CS002', '2024-03-25', 2, 'A102', 'CLS002'),
-('CS003', '2024-03-26', 1, 'A103', 'CLS003'),
-('CS004', '2024-03-26', 2, 'A104', 'CLS004'),
-('CS005', '2024-03-27', 1, 'A105', 'CLS005');
+	CONSTRAINT FK_KQLHHK_LOP FOREIGN KEY(MaLop) REFERENCES LOP(MaLop),
+	CONSTRAINT FK_KQLHHK_NAMHOC FOREIGN KEY(MaNamHoc) REFERENCES NAMHOC(MaNamHoc),
+	CONSTRAINT FK_KQLHHK_HOCKY FOREIGN KEY(MaHocKy) REFERENCES HOCKY(MaHocKy),
+)
 
--- Inserting records into tblFee
-INSERT INTO tblFee (FK_sFeeID, FK_sStudentID, fTotalFee, dDateofFee)
-VALUES
-('FEE001', 'STU001', 100.00, '2024-03-25'),
-('FEE002', 'STU002', 150.00, '2024-03-25'),
-('FEE003', 'STU003', 200.00, '2024-03-26'),
-('FEE004', 'STU004', 250.00, '2024-03-26'),
-('FEE005', 'STU005', 300.00, '2024-03-27');
 
--- Inserting records into tblSubject_Teacher
-INSERT INTO tblSubject_Teacher (FK_sSubjectID, FK_sTeacherID)
-VALUES
-('SUB7', 'T1'),
-('SUB2', 'T2'),
-('SUB1', 'T3'),
-('SUB3', 'T3'),
-('SUB5', 'T5'),
-('SUB10', 'T1'),
-('SUB2', 'T8'),
-('SUB9', 'T3'),
-('SUB4', 'T9'),
-('SUB5', 'T10');
+--===================================================================================================================================================
 
--- Inserting records into tblSubject_Student
-INSERT INTO tblSubject_Student (FK_sSubjectID, FK_sStudentID)
-VALUES
-('SUB7', 'STU001'),
-('SUB6', 'STU002'),
-('SUB2', 'STU003'),
-('SUB3', 'STU004'),
-('SUB4', 'STU007'),
-('SUB1', 'STU008'),
-('SUB10', 'STU005');
 
+--==========================TẠO PROC========================
+
+--==========HỌC SINH=========
+--THÊM HỌC SINH
+CREATE PROCEDURE ThemHS
+    @MaHocSinh VARCHAR(6),
+    @HoTen NVARCHAR(30),
+    @GioiTinh BIT,
+    @NgaySinh DATETIME,
+    @DiaChi NVARCHAR(50),
+    @MaDanToc VARCHAR(6),
+    @Email NVARCHAR(50)
+AS
+BEGIN
+    SET NOCOUNT ON;
+    -- Kiểm tra xem học sinh có tồn tại trong bảng HOCSINH chưa
+    IF NOT EXISTS (SELECT 1 FROM HOCSINH WHERE MaHocSinh = @MaHocSinh)
+    BEGIN
+        -- Thêm học sinh mới vào bảng HOCSINH
+        INSERT INTO HOCSINH (MaHocSinh, HoTen, GioiTinh, NgaySinh, DiaChi, MaDanToc, Email)
+        VALUES (@MaHocSinh, @HoTen, @GioiTinh, @NgaySinh, @DiaChi, @MaDanToc, @Email);
+
+        PRINT 'Thêm học sinh thành công.';
+    END
+    ELSE
+    BEGIN
+        PRINT 'Học sinh đã tồn tại.';
+    END
+END;
+--Update info hoc sinh
+CREATE PROCEDURE SuaHS
+    @MaHocSinh VARCHAR(6),
+    @HoTen NVARCHAR(30),
+    @GioiTinh BIT,
+    @NgaySinh DATETIME,
+    @DiaChi NVARCHAR(50),
+    @MaDanToc VARCHAR(6),
+    @Email NVARCHAR(50)
+AS
+BEGIN
+    SET NOCOUNT ON;
+    IF EXISTS (SELECT 1 FROM HOCSINH WHERE MaHocSinh = @MaHocSinh)
+    BEGIN
+        UPDATE HOCSINH
+        SET HoTen = @HoTen,
+            GioiTinh = @GioiTinh,
+            NgaySinh = @NgaySinh,
+            DiaChi = @DiaChi,
+            MaDanToc = @MaDanToc,
+            Email = @Email
+        WHERE MaHocSinh = @MaHocSinh;
+        PRINT 'Sửa thông tin học sinh thành công.';
+    END
+    ELSE
+    BEGIN
+        PRINT 'Học sinh không tồn tại.';
+    END
+END;
+--Xoa hoc sinh theo ma
+CREATE PROCEDURE XoaHS
+    @MaHocSinh VARCHAR(6)
+AS
+BEGIN
+    SET NOCOUNT ON;
+    
+    -- Xóa học sinh từ bảng HOCSINH
+    DELETE FROM HOCSINH
+    WHERE MaHocSinh = @MaHocSinh;
+
+    PRINT 'Xóa học sinh thành công.';
+END;
