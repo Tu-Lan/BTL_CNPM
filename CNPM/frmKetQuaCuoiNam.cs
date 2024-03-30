@@ -2,11 +2,12 @@ using System.Windows.Forms;
 
 namespace CNPM
 {
-    public partial class frmHocKy : Form
+    public partial class frmKetQuaCuoiNam : Form
     {
-        public frmHocKy()
+        public frmKetQuaCuoiNam()
         {
             InitializeComponent();
         }
+        
     }
 }

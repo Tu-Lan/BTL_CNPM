@@ -2,7 +2,7 @@ using System.ComponentModel;
 
 namespace CNPM
 {
-    partial class frmHocKy
+    partial class frmKetQuaCuoiNam
     {
         /// <summary>
         /// Required designer variable.
@@ -31,11 +31,29 @@ namespace CNPM
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            this.txtTBHK1 = new System.Windows.Forms.TextBox();
+            this.SuspendLayout();
+            // 
+            // txtTBHK1
+            // 
+            this.txtTBHK1.Location = new System.Drawing.Point(65, 71);
+            this.txtTBHK1.Name = "txtTBHK1";
+            this.txtTBHK1.Size = new System.Drawing.Size(143, 20);
+            this.txtTBHK1.TabIndex = 0;
+            // 
+            // frmKetQuaCuoiNam
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Text = "frmHocKy";
+            this.Controls.Add(this.txtTBHK1);
+            this.Name = "frmKetQuaCuoiNam";
+            this.Text = "frmKetQuaCuoiNam";
+            this.ResumeLayout(false);
+            this.PerformLayout();
         }
+
+        public System.Windows.Forms.TextBox txtTBHK1;
 
         #endregion
     }

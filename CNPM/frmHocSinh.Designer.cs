@@ -49,12 +49,13 @@ namespace CNPM
             this.lbTitle = new System.Windows.Forms.Label();
             this.dgvHS = new System.Windows.Forms.DataGridView();
             this.lblMaHS = new System.Windows.Forms.Label();
-            this.btnChiTiet = new System.Windows.Forms.Button();
+            this.btnBangDiemKy1 = new System.Windows.Forms.Button();
             this.txtMaDT = new System.Windows.Forms.TextBox();
             this.lblMaDanToc = new System.Windows.Forms.Label();
             this.txtEmail = new System.Windows.Forms.TextBox();
             this.lblEmail = new System.Windows.Forms.Label();
             this.btnHome = new System.Windows.Forms.Button();
+            this.btnBangDiemKy2 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvHS)).BeginInit();
             this.SuspendLayout();
             // 
@@ -232,16 +233,16 @@ namespace CNPM
             this.lblMaHS.TabIndex = 43;
             this.lblMaHS.Text = "Mã Học Sinh:";
             // 
-            // btnChiTiet
+            // btnBangDiemKy1
             // 
-            this.btnChiTiet.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnChiTiet.Location = new System.Drawing.Point(689, 285);
-            this.btnChiTiet.Name = "btnChiTiet";
-            this.btnChiTiet.Size = new System.Drawing.Size(164, 26);
-            this.btnChiTiet.TabIndex = 44;
-            this.btnChiTiet.Text = "Chi tiết học sinh";
-            this.btnChiTiet.UseVisualStyleBackColor = true;
-            this.btnChiTiet.Click += new System.EventHandler(this.btnChiTiet_Click);
+            this.btnBangDiemKy1.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnBangDiemKy1.Location = new System.Drawing.Point(714, 61);
+            this.btnBangDiemKy1.Name = "btnBangDiemKy1";
+            this.btnBangDiemKy1.Size = new System.Drawing.Size(164, 26);
+            this.btnBangDiemKy1.TabIndex = 44;
+            this.btnBangDiemKy1.Text = "Bảng điển học sinh kỳ 1";
+            this.btnBangDiemKy1.UseVisualStyleBackColor = true;
+            this.btnBangDiemKy1.Click += new System.EventHandler(this.btnChiTiet_Click);
             // 
             // txtMaDT
             // 
@@ -290,17 +291,28 @@ namespace CNPM
             this.btnHome.UseVisualStyleBackColor = true;
             this.btnHome.Click += new System.EventHandler(this.btnHome_Click);
             // 
+            // btnBangDiemKy2
+            // 
+            this.btnBangDiemKy2.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnBangDiemKy2.Location = new System.Drawing.Point(714, 111);
+            this.btnBangDiemKy2.Name = "btnBangDiemKy2";
+            this.btnBangDiemKy2.Size = new System.Drawing.Size(164, 26);
+            this.btnBangDiemKy2.TabIndex = 50;
+            this.btnBangDiemKy2.Text = "Bảng điển học sinh kỳ 2";
+            this.btnBangDiemKy2.UseVisualStyleBackColor = true;
+            // 
             // frmHocSinh
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(961, 654);
+            this.Controls.Add(this.btnBangDiemKy2);
             this.Controls.Add(this.btnHome);
             this.Controls.Add(this.txtEmail);
             this.Controls.Add(this.lblEmail);
             this.Controls.Add(this.txtMaDT);
             this.Controls.Add(this.lblMaDanToc);
-            this.Controls.Add(this.btnChiTiet);
+            this.Controls.Add(this.btnBangDiemKy1);
             this.Controls.Add(this.lblMaHS);
             this.Controls.Add(this.txtTimKiem);
             this.Controls.Add(this.lbTimkiem);
@@ -327,6 +339,8 @@ namespace CNPM
             this.PerformLayout();
         }
 
+        private System.Windows.Forms.Button btnBangDiemKy2;
+
         private System.Windows.Forms.Button btnHome;
 
         private System.Windows.Forms.TextBox txtMaDT;
@@ -334,7 +348,7 @@ namespace CNPM
         private System.Windows.Forms.TextBox txtEmail;
         private System.Windows.Forms.Label lblEmail;
 
-        private System.Windows.Forms.Button btnChiTiet;
+        private System.Windows.Forms.Button btnBangDiemKy1;
 
         private System.Windows.Forms.Label lblMaHS;
         private System.Windows.Forms.TextBox txtTimKiem;

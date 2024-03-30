@@ -3,12 +3,14 @@ using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace CNPM
 {
     public partial class frmDiemHS : Form
     {
+        private double diemTrungBinhKy;
         public frmDiemHS(string maHS)
         {
             InitializeComponent();
@@ -31,41 +33,66 @@ namespace CNPM
             txtDiemThi.Text = "";
         }
         private void frmDiemHS_Load_1(object sender, EventArgs e)
-        {using (SqlConnection conn = new SqlConnection(constr))
+{
+    using (SqlConnection conn = new SqlConnection(constr))
+    {
+        string query = "SELECT KQ.MaHocSinh,HS.HoTen,L.TenLop,NH.TenNamHoc,MH.TenMonHoc,HK.TenHocKy, KQ.DiemMiengTB, KQ.Diem15PhutTB, KQ.Diem45PhutTB, KQ.DiemThi, ROUND((KQ.DiemMiengTB + KQ.Diem15PhutTB + KQ.Diem45PhutTB + KQ.DiemThi) / 4.0 , 1) AS DiemTrungBinhMon " +
+                       "FROM KQ_HOCSINH_MONHOC AS KQ " +
+                       "INNER JOIN HOCSINH AS HS ON KQ.MaHocSinh = HS.MaHocSinh " +
+                       "INNER JOIN LOP AS L ON KQ.MaLop = L.MaLop " +
+                       "INNER JOIN NAMHOC AS NH ON KQ.MaNamHoc = NH.MaNamHoc " +
+                       "INNER JOIN MONHOC AS MH ON KQ.MaMonHoc = MH.MaMonHoc " +
+                       "INNER JOIN HOCKY AS HK ON KQ.MaHocKy = HK.MaHocKy " +
+                       "WHERE HS.MaHocSinh = @MaHocSinh AND HK.TENHOCKY = N'Học Kỳ 1'";
+
+        using (SqlCommand cmd = new SqlCommand(query, conn))
+        {
+            cmd.Parameters.AddWithValue("@MaHocSinh", txtMaHS.Text);
+            conn.Open();
+            using (SqlDataAdapter adt = new SqlDataAdapter(cmd))
             {
-                string query = "SELECT KQ.MaHocSinh, HS.HoTen, KQ.MaLop, L.TenLop, KQ.MaNamHoc, NH.TenNamHoc, KQ.MaMonHoc, MH.TenMonHoc, KQ.MaHocKy, HK.TenHocKy, KQ.DiemMiengTB, KQ.Diem15PhutTB, KQ.Diem45PhutTB, KQ.DiemThi " +
-                               "FROM KQ_HOCSINH_MONHOC AS KQ " +
-                               "INNER JOIN HOCSINH AS HS ON KQ.MaHocSinh = HS.MaHocSinh " +
-                               "INNER JOIN LOP AS L ON KQ.MaLop = L.MaLop " +
-                               "INNER JOIN NAMHOC AS NH ON KQ.MaNamHoc = NH.MaNamHoc " +
-                               "INNER JOIN MONHOC AS MH ON KQ.MaMonHoc = MH.MaMonHoc " +
-                               "INNER JOIN HOCKY AS HK ON KQ.MaHocKy = HK.MaHocKy " +
-                               "WHERE HS.MaHocSinh = @MaHocSinh";
-
-                using (SqlCommand cmd = new SqlCommand(query, conn))
-                {
-                    cmd.Parameters.AddWithValue("@MaHocSinh", txtMaHS.Text);
-                    conn.Open();
-                    using (SqlDataAdapter adt = new SqlDataAdapter(cmd))
-                    {
-                        DataTable dt = new DataTable();
-                        adt.Fill(dt);
-                        dgvDSDiem.DataSource = dt;
-                        dgvDSDiem.Columns[0].HeaderText = "Mã Học Sinh";
-                        dgvDSDiem.Columns[1].HeaderText = "Họ và Tên";
-                        dgvDSDiem.Columns[3].HeaderText = "Tên Lớp";
-                        dgvDSDiem.Columns[5].HeaderText = "Tên Năm Học";
-                        dgvDSDiem.Columns[7].HeaderText = "Tên Môn Học";
-                        dgvDSDiem.Columns[9].HeaderText = "Tên Học Kỳ";
-                        dgvDSDiem.Columns[10].HeaderText = "Điểm miệng";
-                        dgvDSDiem.Columns[11].HeaderText = "Điểm 15 phút";
-                        dgvDSDiem.Columns[12].HeaderText = "Điểm 45 phút";
-                        dgvDSDiem.Columns[13].HeaderText = "Điểm thi";
-                    }
-                }
+                DataTable dt = new DataTable();
+                adt.Fill(dt);
+                double diemTrungBinhKy = dt.AsEnumerable().Average(row => row.Field<double>("DiemTrungBinhMon"));
+                DataRow rowTBHK = dt.NewRow();
+                rowTBHK["MaHocSinh"] = "TBHK";
+                rowTBHK["HoTen"] = "";
+                rowTBHK["TenLop"] = "";
+                rowTBHK["TenNamHoc"] = "";
+                rowTBHK["TenMonHoc"] = "";
+                rowTBHK["TenHocKy"] = "";
+                rowTBHK["DiemMiengTB"] = DBNull.Value;
+                rowTBHK["Diem15PhutTB"] = DBNull.Value;
+                rowTBHK["Diem45PhutTB"] = DBNull.Value;
+                rowTBHK["DiemThi"] = DBNull.Value;
+                rowTBHK["DiemTrungBinhMon"] = Math.Round(diemTrungBinhKy, 1);
+                dt.Rows.Add(rowTBHK);
+                dgvDSDiem.DataSource = dt;
+                dgvDSDiem.Columns[0].HeaderText = "Mã Học Sinh";
+                dgvDSDiem.Columns[1].HeaderText = "Họ và Tên";
+                dgvDSDiem.Columns[2].HeaderText = "Tên Lớp";
+                dgvDSDiem.Columns[3].HeaderText = "Tên Năm Học";
+                dgvDSDiem.Columns[4].HeaderText = "Tên Môn Học";
+                dgvDSDiem.Columns[5].HeaderText = "Tên Học Kỳ";
+                dgvDSDiem.Columns[6].HeaderText = "Điểm miệng";
+                dgvDSDiem.Columns[7].HeaderText = "Điểm 15 phút";
+                dgvDSDiem.Columns[8].HeaderText = "Điểm 45 phút";
+                dgvDSDiem.Columns[9].HeaderText = "Điểm thi";
+                dgvDSDiem.Columns[10].HeaderText = "Điểm trung bình";
             }
-
         }
+    }
+}
+        // private static double TinhDiemTrungBinh(DataTable dt)
+        // {
+        //     if (dt.Rows.Count == 0)
+        //         return 0.0; // hoặc giá trị mặc định tùy thuộc vào yêu cầu của bạn
+        //
+        //     double diemTrungBinhKy = dt.AsEnumerable()
+        //         .Average(row => row.Field<double>("DiemTrungBinhMon"));
+        //     return Math.Round(diemTrungBinhKy, 1);
+        // }
+
         private void dgvDSDiem_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             dgvDSDiem.Font = new Font("Times New Roman", 12, FontStyle.Regular);
@@ -151,5 +178,7 @@ namespace CNPM
                 MessageBox.Show("Đã xảy ra lỗi: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        
     }
 }

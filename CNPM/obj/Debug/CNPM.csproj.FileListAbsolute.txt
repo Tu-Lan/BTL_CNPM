@@ -258,3 +258,7 @@ N:\CNPM\BTL_CNPM\CNPM\obj\Debug\CNPM.csproj.CoreCompileInputs.cache
 N:\CNPM\BTL_CNPM\CNPM\obj\Debug\CNPM.csproj.CopyComplete
 N:\CNPM\BTL_CNPM\CNPM\obj\Debug\CNPM.exe
 N:\CNPM\BTL_CNPM\CNPM\obj\Debug\CNPM.pdb
+N:\CNPM\BTL_CNPM\CNPM\obj\Debug\CNPM.frmBangDiemHK2.resources
+N:\CNPM\BTL_CNPM\CNPM\obj\Debug\CNPM.frmGiaoVien.resources
+N:\CNPM\BTL_CNPM\CNPM\obj\Debug\CNPM.frmLichHoc.resources
+N:\CNPM\BTL_CNPM\CNPM\obj\Debug\CNPM.frmKetQuaCuoiNam.resources
