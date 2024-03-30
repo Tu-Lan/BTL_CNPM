@@ -171,3 +171,4 @@ D:\C#\BTL_CNPM\CNPM\obj\Debug\CNPM.csproj.CopyComplete
 D:\C#\BTL_CNPM\CNPM\obj\Debug\CNPM.exe
 D:\C#\BTL_CNPM\CNPM\obj\Debug\CNPM.pdb
 D:\C#\BTL_CNPM\CNPM\obj\Debug\CNPM.frmGiaoVien.resources
+D:\C#\BTL_CNPM\CNPM\obj\Debug\CNPM.frmLichHoc.resources

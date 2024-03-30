@@ -244,6 +244,9 @@
     <EmbeddedResource Include="frmHocSinh.resx">
       <DependentUpon>frmHocSinh.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmLichHoc.resx">
+      <DependentUpon>frmLichHoc.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmTrangChuAD.resx">
       <DependentUpon>frmTrangChuAD.cs</DependentUpon>
     </EmbeddedResource>

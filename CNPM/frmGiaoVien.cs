@@ -117,42 +117,36 @@ namespace CNPM
             string tenGV = txtName.Text;
             string diaChi = txtAddress.Text;
             string dienThoai = txtMaDT.Text;
-            string maMonHoc = string.Empty;
-            object selectedItem = cb_mmh.SelectedItem;
-            if (selectedItem != null)
+            string maMonHoc = cb_mmh.Text;
+            // Chuyển đổi giá trị từ ComboBox sang kiểu INT
+           /* int maMonHoc;
+            if (!int.TryParse(cb_mmh.Text, out maMonHoc))
             {
-                if (selectedItem is KeyValuePair<string, string>)
-                {
-                    KeyValuePair<string, string> selectedMonHoc = (KeyValuePair<string, string>)selectedItem;
-                    maMonHoc = selectedMonHoc.Key;
-                }
-                else if (selectedItem is string)
-                {
-                    maMonHoc = selectedItem.ToString();
-                }
-            }
+                MessageBox.Show("Vui lòng chọn một môn học hợp lệ.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }*/
 
-            // Thực hiện thêm dữ liệu vào cơ sở dữ liệu
-            string query = "INSERT INTO GIAOVIEN (MaGiaoVien, TenGiaoVien, DiaChi, DienThoai, MaMonHoc) VALUES (@MaGV, @TenGV, @DiaChi, @DienThoai, @MaMonHoc)";
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            // Thực hiện thêm dữ liệu vào cơ sở dữ liệu bằng stored procedure
+            using (SqlConnection conn = new SqlConnection(connectionString))
             {
-                SqlCommand command = new SqlCommand(query, connection);
-                command.Parameters.AddWithValue("@MaGV", maGV);
-                command.Parameters.AddWithValue("@TenGV", tenGV);
-                command.Parameters.AddWithValue("@DiaChi", diaChi);
-                command.Parameters.AddWithValue("@DienThoai", dienThoai);
-                command.Parameters.AddWithValue("@MaMonHoc", maMonHoc);
-
                 try
                 {
-                    connection.Open();
-                    command.ExecuteNonQuery();
+                    SqlCommand cmd = new SqlCommand("[dbo].[usp_ThemGiaoVien]", conn);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@MaGiaoVien", maGV);
+                    cmd.Parameters.AddWithValue("@TenGiaoVien", tenGV);
+                    cmd.Parameters.AddWithValue("@DiaChi", diaChi);
+                    cmd.Parameters.AddWithValue("@DienThoai", dienThoai);
+                    cmd.Parameters.AddWithValue("@MaMonHoc", maMonHoc);
+
+                    conn.Open();
+                    cmd.ExecuteNonQuery();
                     MessageBox.Show("Thêm giáo viên thành công.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    LoadData(); // Refresh DataGridView
+                    LoadData();
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Đã xảy ra lỗi khi thêm giáo viên: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Lỗi: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
@@ -198,19 +192,18 @@ namespace CNPM
 
         private void UpdateTeacher(string maGV, string tenGV, string diaChi, string dienThoai, string maMonHoc)
         {
-            string query = "UPDATE GIAOVIEN SET TenGiaoVien = @TenGV, DiaChi = @DiaChi, DienThoai = @DienThoai, MaMonHoc = @MaMonHoc WHERE MaGiaoVien = @MaGV";
-
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                SqlCommand command = new SqlCommand(query, connection);
-                command.Parameters.AddWithValue("@TenGV", tenGV);
-                command.Parameters.AddWithValue("@DiaChi", diaChi);
-                command.Parameters.AddWithValue("@DienThoai", dienThoai);
-                command.Parameters.AddWithValue("@MaMonHoc", maMonHoc);
-                command.Parameters.AddWithValue("@MaGV", maGV);
-
                 try
                 {
+                    SqlCommand command = new SqlCommand("[dbo].[usp_SuaGiaoVien]", connection);
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@MaGiaoVien", maGV);
+                    command.Parameters.AddWithValue("@TenGiaoVien", tenGV);
+                    command.Parameters.AddWithValue("@DiaChi", diaChi);
+                    command.Parameters.AddWithValue("@DienThoai", dienThoai);
+                    command.Parameters.AddWithValue("@MaMonHoc", maMonHoc);
+
                     connection.Open();
                     command.ExecuteNonQuery();
                     MessageBox.Show("Cập nhật thông tin giáo viên thành công.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -225,15 +218,14 @@ namespace CNPM
 
         private void DeleteTeacher(string maGV)
         {
-            string query = "DELETE FROM GIAOVIEN WHERE MaGiaoVien = @MaGV";
-
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                SqlCommand command = new SqlCommand(query, connection);
-                command.Parameters.AddWithValue("@MaGV", maGV);
-
                 try
                 {
+                    SqlCommand command = new SqlCommand("[dbo].[usp_XoaGiaoVien]", connection);
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@MaGiaoVien", maGV);
+
                     connection.Open();
                     command.ExecuteNonQuery();
                     MessageBox.Show("Xóa giáo viên thành công.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
