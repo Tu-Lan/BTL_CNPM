@@ -744,16 +744,24 @@ CREATE TABLE KQ_LOPHOC_HOCKY
 
 --===================================================================================================================================================
 
-CREATE TABLE QUYDINH
-(
-	TuoiCanDuoi INT NOT NULL,
-	TuoiCanTren INT NOT NULL,
-	SiSoCanDuoi INT NOT NULL,
-	SiSoCanTren INT NOT NULL,
-	DiemDat INT NOT NULL,
-)
-SELECT*FROM dbo.DIEM
-INSERT INTO QUYDINH VALUES(15, 20, 30, 40, 5)
+CREATE TABLE LichHoc (
+    ID VARCHAR(10) PRIMARY KEY ,
+    MaLop VARCHAR(10),
+    MaMonHoc VARCHAR(6),
+    MaGiaoVien VARCHAR(6),
+    NgayHoc DATETIME,
+    CaHoc NVARCHAR(10), -- Sáng, Chiều, Tối
+    CONSTRAINT FK_Lop FOREIGN KEY (MaLop) REFERENCES LOP(MaLop),
+    CONSTRAINT FK_MonHoc FOREIGN KEY (MaMonHoc) REFERENCES MONHOC(MaMonHoc),
+    CONSTRAINT FK_GiaoVien FOREIGN KEY (MaGiaoVien) REFERENCES GIAOVIEN(MaGiaoVien)
+);
+
+
+---- thêm dữ liệu 
+-- Thêm dữ liệu vào bảng LichHoc
+INSERT INTO dbo.LichHoc
+VALUES
+('LOP1','LOP6A2223', 'MH0001', 'GV0001', '2024-04-01', N'Sáng'),('LOP2','LOP6A2324', 'MH0002', 'GV0002', '2024-04-01', N'Chiều'),('LOP3','LOP6A2324', 'MH0003', 'GV0003', '2024-04-02', N'Tối');
 
 --===================================================================================================================================================
 
@@ -920,4 +928,124 @@ BEGIN
         PRINT 'Không tìm thấy dữ liệu phù hợp để cập nhật.';
     END
 END;
+SELECT * FROM dbo.LichHoc
+--========GIÁO VIÊN===================
+------
+CREATE PROCEDURE themGV
+    @MaGiaoVien VARCHAR(6),
+    @TenGiaoVien NVARCHAR(30),
+    @DiaChi NVARCHAR(50),
+    @DienThoai NVARCHAR(15),
+    @MaMonHoc VARCHAR(6)
+AS
+BEGIN
+    SET NOCOUNT ON;
+    IF NOT EXISTS (SELECT 1 FROM MONHOC WHERE MaMonHoc = @MaMonHoc)
+    BEGIN
+        RAISERROR('Mã môn học không tồn tại.', 16, 1);
+        RETURN;
+    END;
+    INSERT INTO GIAOVIEN (MaGiaoVien, TenGiaoVien, DiaChi, DienThoai, MaMonHoc)
+    VALUES (@MaGiaoVien, @TenGiaoVien, @DiaChi, @DienThoai, @MaMonHoc);
+    PRINT 'Thêm giáo viên thành công.';
+END;
 
+
+CREATE PROCEDURE [dbo].[usp_SuaGiaoVien]
+    @MaGiaoVien NVARCHAR(50),
+    @TenGiaoVien NVARCHAR(100),
+    @DiaChi NVARCHAR(100),
+    @DienThoai NVARCHAR(20),
+    @MaMonHoc nvarchar(20)
+AS
+BEGIN
+    UPDATE [dbo].[GIAOVIEN]
+    SET [TenGiaoVien] = @TenGiaoVien,
+        [DiaChi] = @DiaChi,
+        [DienThoai] = @DienThoai,
+        [MaMonHoc] = @MaMonHoc
+    WHERE [MaGiaoVien] = @MaGiaoVien;
+END
+---xóa
+CREATE PROCEDURE [dbo].[usp_XoaGiaoVien]
+    @MaGiaoVien NVARCHAR(50)
+AS
+BEGIN
+    DELETE FROM [dbo].[GIAOVIEN] WHERE [MaGiaoVien] = @MaGiaoVien;
+END
+
+--===================LỊCH HỌC=======================
+ALTER PROCEDURE ThemLichHoc 
+	@ID varchar(10),
+    @MaLop VARCHAR(10),
+    @MaMonHoc VARCHAR(6),
+    @MaGiaoVien VARCHAR(6),
+    @NgayHoc DATETIME,
+    @CaHoc NVARCHAR(10),
+    @ResultMessage NVARCHAR(255) OUTPUT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    BEGIN TRY
+        -- Kiểm tra sự tồn tại của MaLop, MaMonHoc và MaGiaoVien
+        IF NOT EXISTS (SELECT 1 FROM LOP WHERE MaLop = @MaLop)
+        BEGIN
+            SET @ResultMessage = 'Lớp không tồn tại.';
+            RETURN;
+        END
+
+        IF NOT EXISTS (SELECT 1 FROM MONHOC WHERE MaMonHoc = @MaMonHoc)
+        BEGIN
+            SET @ResultMessage = 'Môn học không tồn tại.';
+            RETURN;
+        END
+
+        IF NOT EXISTS (SELECT 1 FROM GIAOVIEN WHERE MaGiaoVien = @MaGiaoVien)
+        BEGIN
+            SET @ResultMessage = 'Giáo viên không tồn tại.';
+            RETURN;
+        END
+
+        -- Thêm bản ghi mới vào bảng LichHoc
+        INSERT INTO LichHoc (ID,MaLop, MaMonHoc, MaGiaoVien, NgayHoc, CaHoc)
+        VALUES (@ID,@MaLop, @MaMonHoc, @MaGiaoVien, @NgayHoc, @CaHoc);
+
+        SET @ResultMessage = 'Thêm lịch học thành công.';
+    END TRY
+    BEGIN CATCH
+        SET @ResultMessage = ERROR_MESSAGE(); -- Lưu thông báo lỗi vào biến @ResultMessage
+    END CATCH;
+END;
+
+ALTER PROCEDURE suaLichHoc 
+    @ID varchar(10),
+    @MaLop VARCHAR(10),
+    @MaMonHoc VARCHAR(6),
+    @MaGiaoVien VARCHAR(6),
+    @NgayHoc DATETIME,
+    @CaHoc NVARCHAR(10)
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    UPDATE LichHoc 
+    SET 
+        MaLop = @MaLop,
+        MaMonHoc = @MaMonHoc,
+        MaGiaoVien = @MaGiaoVien,
+        NgayHoc = @NgayHoc,
+        CaHoc = @CaHoc
+    WHERE ID = @ID;
+END;
+
+ALTER PROCEDURE xoaLichHoc 
+    @ID varchar(10)
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    DELETE FROM LichHoc 
+    WHERE ID = @ID;
+END;
+SELECT * FROM dbo.LichHoc
