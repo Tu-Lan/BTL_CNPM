@@ -300,6 +300,7 @@ namespace CNPM
             this.btnBangDiemKy2.TabIndex = 50;
             this.btnBangDiemKy2.Text = "Bảng điển học sinh kỳ 2";
             this.btnBangDiemKy2.UseVisualStyleBackColor = true;
+            this.btnBangDiemKy2.Click += new System.EventHandler(this.btnBangDiemKy2_Click);
             // 
             // frmHocSinh
             // 

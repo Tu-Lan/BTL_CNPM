@@ -16,7 +16,7 @@ namespace CNPM
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new frmKetQuaCuoiNam());
+            Application.Run(new frmDangNhap());
         }
     }
 }

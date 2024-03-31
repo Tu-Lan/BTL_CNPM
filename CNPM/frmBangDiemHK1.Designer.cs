@@ -84,9 +84,10 @@ namespace CNPM
             this.button3 = new System.Windows.Forms.Button();
             this.label13 = new System.Windows.Forms.Label();
             this.textBox11 = new System.Windows.Forms.TextBox();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.dgvDiemHK1 = new System.Windows.Forms.DataGridView();
+            this.btnBack = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDSDiem)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvDiemHK1)).BeginInit();
             this.SuspendLayout();
             // 
             // dgvDSDiem
@@ -537,19 +538,31 @@ namespace CNPM
             this.textBox11.Size = new System.Drawing.Size(208, 29);
             this.textBox11.TabIndex = 69;
             // 
-            // dataGridView1
+            // dgvDiemHK1
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(12, 346);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(1058, 312);
-            this.dataGridView1.TabIndex = 68;
+            this.dgvDiemHK1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvDiemHK1.Location = new System.Drawing.Point(12, 346);
+            this.dgvDiemHK1.Name = "dgvDiemHK1";
+            this.dgvDiemHK1.Size = new System.Drawing.Size(1058, 312);
+            this.dgvDiemHK1.TabIndex = 68;
+            // 
+            // btnBack
+            // 
+            this.btnBack.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnBack.Location = new System.Drawing.Point(12, 9);
+            this.btnBack.Name = "btnBack";
+            this.btnBack.Size = new System.Drawing.Size(65, 34);
+            this.btnBack.TabIndex = 96;
+            this.btnBack.Text = "Back";
+            this.btnBack.UseVisualStyleBackColor = true;
+            this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
             // 
             // frmDiemHS
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1082, 669);
+            this.Controls.Add(this.btnBack);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.textBox1);
@@ -576,7 +589,7 @@ namespace CNPM
             this.Controls.Add(this.button3);
             this.Controls.Add(this.label13);
             this.Controls.Add(this.textBox11);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.dgvDiemHK1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.lblDiemThi);
             this.Controls.Add(this.txtDiemThi);
@@ -610,10 +623,12 @@ namespace CNPM
             this.Text = "Nhập điểm học sinh";
             this.Load += new System.EventHandler(this.frmDiemHS_Load_1);
             ((System.ComponentModel.ISupportInitialize)(this.dgvDSDiem)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvDiemHK1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
         }
+
+        private System.Windows.Forms.Button btnBack;
 
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
@@ -641,7 +656,7 @@ namespace CNPM
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.TextBox textBox11;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView dgvDiemHK1;
 
         private System.Windows.Forms.Label label1;
 

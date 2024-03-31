@@ -114,7 +114,7 @@ namespace CNPM
         }
         private void btnChiTiet_Click(object sender, EventArgs e)
         {
-            frmDiemHS diemHs = new frmDiemHS(txtMaHS.Text);
+            frmDiemHS diemHs = new frmDiemHS(txtMaHS.Text,username,role);
             diemHs.Show();
             this.Hide();
         }
@@ -245,6 +245,12 @@ namespace CNPM
                 this.Hide();
                 bgh.Show();
             }
+        }
+        private void btnBangDiemKy2_Click(object sender, EventArgs e)
+        {
+            frmBangDiemHK2 bangDiemHk2 = new frmBangDiemHK2(txtMaHS.Text,username,role);
+            bangDiemHk2.Show();
+            this.Hide();
         }
     }
 }

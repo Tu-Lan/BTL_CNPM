@@ -57,8 +57,9 @@ namespace CNPM
             this.btnAdd = new System.Windows.Forms.Button();
             this.lblMaHS = new System.Windows.Forms.Label();
             this.txtMaHS = new System.Windows.Forms.TextBox();
-            this.dgvDSDiem = new System.Windows.Forms.DataGridView();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvDSDiem)).BeginInit();
+            this.dgvDSDiemHK2 = new System.Windows.Forms.DataGridView();
+            this.btnBack = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvDSDiemHK2)).BeginInit();
             this.SuspendLayout();
             // 
             // lblTitle
@@ -281,20 +282,32 @@ namespace CNPM
             this.txtMaHS.Size = new System.Drawing.Size(208, 26);
             this.txtMaHS.TabIndex = 69;
             // 
-            // dgvDSDiem
+            // dgvDSDiemHK2
             // 
-            this.dgvDSDiem.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvDSDiem.Location = new System.Drawing.Point(96, 345);
-            this.dgvDSDiem.Name = "dgvDSDiem";
-            this.dgvDSDiem.Size = new System.Drawing.Size(1058, 312);
-            this.dgvDSDiem.TabIndex = 68;
-            this.dgvDSDiem.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvDSDiem_CellContentClick);
+            this.dgvDSDiemHK2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvDSDiemHK2.Location = new System.Drawing.Point(96, 345);
+            this.dgvDSDiemHK2.Name = "dgvDSDiemHK2";
+            this.dgvDSDiemHK2.Size = new System.Drawing.Size(1058, 312);
+            this.dgvDSDiemHK2.TabIndex = 68;
+            this.dgvDSDiemHK2.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvDSDiem_CellContentClick);
+            // 
+            // btnBack
+            // 
+            this.btnBack.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnBack.Location = new System.Drawing.Point(4, 9);
+            this.btnBack.Name = "btnBack";
+            this.btnBack.Size = new System.Drawing.Size(65, 34);
+            this.btnBack.TabIndex = 95;
+            this.btnBack.Text = "Back";
+            this.btnBack.UseVisualStyleBackColor = true;
+            this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
             // 
             // frmBangDiemHK2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 19F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1200, 658);
+            this.Controls.Add(this.btnBack);
             this.Controls.Add(this.lblTitle);
             this.Controls.Add(this.lblDiemThi);
             this.Controls.Add(this.txtDiemThi);
@@ -321,16 +334,18 @@ namespace CNPM
             this.Controls.Add(this.btnAdd);
             this.Controls.Add(this.lblMaHS);
             this.Controls.Add(this.txtMaHS);
-            this.Controls.Add(this.dgvDSDiem);
+            this.Controls.Add(this.dgvDSDiemHK2);
             this.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "frmBangDiemHK2";
             this.Text = "Bảng điểm học kỳ 2";
             this.Load += new System.EventHandler(this.frmBangDiemHK2_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvDSDiem)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvDSDiemHK2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
         }
+
+        private System.Windows.Forms.Button btnBack;
 
         private System.Windows.Forms.Label lblTitle;
         private System.Windows.Forms.Label lblDiemThi;
@@ -358,7 +373,7 @@ namespace CNPM
         private System.Windows.Forms.Button btnAdd;
         private System.Windows.Forms.Label lblMaHS;
         private System.Windows.Forms.TextBox txtMaHS;
-        private System.Windows.Forms.DataGridView dgvDSDiem;
+        private System.Windows.Forms.DataGridView dgvDSDiemHK2;
 
         #endregion
     }

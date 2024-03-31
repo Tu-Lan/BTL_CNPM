@@ -10,97 +10,127 @@ namespace CNPM
 {
     public partial class frmBangDiemHK2 : Form
     {
-        public frmBangDiemHK2()
+        private string username;
+        private string role;
+        public frmBangDiemHK2(string maHS, string username, string role)
         {
+            this.username = username;
+            this.role = role;
             InitializeComponent();
+            txtMaHS.Text = maHS;
         }
         string constr = ConfigurationManager.ConnectionStrings["QLHS"].ConnectionString;
 
         private void reset()
         {
-            txtMaHS.Text = "";
-            txtHoTen.Text = "";
-            txtTenLop.Text = "";
-            txtTenNamHoc.Text = "";
-            txtTenMon.Text = "";
-            txtTenHocKy.Text = "";
-            txtDiemMieng.Text = "";
-            txtDiem15p.Text = "";
-            txtDiem45p.Text = "";
-            txtDiemThi.Text = "";
+            foreach (Control ctrl in Controls)
+            {
+                if (ctrl is TextBox)
+                {
+                    ((TextBox)ctrl).Clear();
+                }
+            }
         }
         private void frmBangDiemHK2_Load(object sender, EventArgs e)
-        {
-            using (SqlConnection conn = new SqlConnection(constr))
+{
+    try
     {
-        string query = "SELECT KQ.MaHocSinh,HS.HoTen,L.TenLop,NH.TenNamHoc,MH.TenMonHoc,HK.TenHocKy, KQ.DiemMiengTB, KQ.Diem15PhutTB, KQ.Diem45PhutTB, KQ.DiemThi, ROUND((KQ.DiemMiengTB + KQ.Diem15PhutTB + KQ.Diem45PhutTB + KQ.DiemThi) / 4.0 , 1) AS DiemTrungBinhMon " +
-                       "FROM KQ_HOCSINH_MONHOC AS KQ " +
-                       "INNER JOIN HOCSINH AS HS ON KQ.MaHocSinh = HS.MaHocSinh " +
-                       "INNER JOIN LOP AS L ON KQ.MaLop = L.MaLop " +
-                       "INNER JOIN NAMHOC AS NH ON KQ.MaNamHoc = NH.MaNamHoc " +
-                       "INNER JOIN MONHOC AS MH ON KQ.MaMonHoc = MH.MaMonHoc " +
-                       "INNER JOIN HOCKY AS HK ON KQ.MaHocKy = HK.MaHocKy " +
-                       "WHERE HS.MaHocSinh = @MaHocSinh AND HK.TENHOCKY = N'Học Kỳ 2'";
-
-        using (SqlCommand cmd = new SqlCommand(query, conn))
+        using (SqlConnection conn = new SqlConnection(constr))
         {
-            cmd.Parameters.AddWithValue("@MaHocSinh", txtMaHS.Text);
-            conn.Open();
-            using (SqlDataAdapter adt = new SqlDataAdapter(cmd))
+            string query =
+                @"SELECT KQ.MaHocSinh, HS.HoTen AS [Họ và Tên], L.TenLop AS [Tên Lớp], NH.TenNamHoc AS [Tên Năm Học], 
+                MH.TenMonHoc AS [Tên Môn Học], HK.TenHocKy AS [Tên Học Kỳ], KQ.DiemMiengTB AS [Điểm miệng], 
+                KQ.Diem15PhutTB AS [Điểm 15 phút], KQ.Diem45PhutTB AS [Điểm 45 phút], KQ.DiemThi AS [Điểm thi]
+                FROM dbo.KQ_HOCSINH_MONHOC AS KQ 
+                INNER JOIN HOCSINH HS ON KQ.MaHocSinh = HS.MaHocSinh 
+                INNER JOIN LOP L ON KQ.MaLop = L.MaLop 
+                INNER JOIN NAMHOC NH ON KQ.MaNamHoc = NH.MaNamHoc 
+                INNER JOIN HOCKY HK ON KQ.MaHocKy = HK.MaHocKy 
+                INNER JOIN dbo.MONHOC MH ON MH.MaMonHoc = KQ.MaMonHoc 
+                WHERE KQ.MaHocSinh = @MaHocSinh AND HK.MaHocKy = 'HK2' ";
+
+            using (SqlCommand cmd = new SqlCommand(query, conn))
             {
-                DataTable dt = new DataTable();
-                adt.Fill(dt);
-                double diemTrungBinhKy = dt.AsEnumerable().Average(row => row.Field<double>("DiemTrungBinhMon"));
-                DataRow rowTBHK = dt.NewRow();
-                rowTBHK["MaHocSinh"] = "TBHK";
-                rowTBHK["HoTen"] = "";
-                rowTBHK["TenLop"] = "";
-                rowTBHK["TenNamHoc"] = "";
-                rowTBHK["TenMonHoc"] = "";
-                rowTBHK["TenHocKy"] = "";
-                rowTBHK["DiemMiengTB"] = DBNull.Value;
-                rowTBHK["Diem15PhutTB"] = DBNull.Value;
-                rowTBHK["Diem45PhutTB"] = DBNull.Value;
-                rowTBHK["DiemThi"] = DBNull.Value;
-                rowTBHK["DiemTrungBinhMon"] = Math.Round(diemTrungBinhKy, 1);
-                
-                // Thêm hàng mới vào DataTable
-                dt.Rows.Add(rowTBHK);
+                cmd.Parameters.AddWithValue("@MaHocSinh", txtMaHS.Text);
 
-                dgvDSDiem.DataSource = dt;
+                conn.Open();
+                using (SqlDataAdapter adt = new SqlDataAdapter(cmd))
+                {
+                    DataTable dt = new DataTable();
+                    adt.Fill(dt);
 
-                // Đặt lại tiêu đề cho cột
-                dgvDSDiem.Columns[0].HeaderText = "Mã Học Sinh";
-                dgvDSDiem.Columns[1].HeaderText = "Họ và Tên";
-                dgvDSDiem.Columns[2].HeaderText = "Tên Lớp";
-                dgvDSDiem.Columns[3].HeaderText = "Tên Năm Học";
-                dgvDSDiem.Columns[4].HeaderText = "Tên Môn Học";
-                dgvDSDiem.Columns[5].HeaderText = "Tên Học Kỳ";
-                dgvDSDiem.Columns[6].HeaderText = "Điểm miệng";
-                dgvDSDiem.Columns[7].HeaderText = "Điểm 15 phút";
-                dgvDSDiem.Columns[8].HeaderText = "Điểm 45 phút";
-                dgvDSDiem.Columns[9].HeaderText = "Điểm thi";
-                dgvDSDiem.Columns[10].HeaderText = "Điểm trung bình";
+                    // Thêm cột điểm trung bình môn (TBMon)
+                    dt.Columns.Add("TBMon", typeof(decimal));
+
+                    // Tính toán điểm trung bình môn và gán vào cột mới
+                    foreach (DataRow row in dt.Rows)
+                    {
+                        decimal diemMieng = Convert.ToDecimal(row["Điểm miệng"]);
+                        decimal diem15p = Convert.ToDecimal(row["Điểm 15 phút"]);
+                        decimal diem45p = Convert.ToDecimal(row["Điểm 45 phút"]);
+                        decimal diemThi = Convert.ToDecimal(row["Điểm thi"]);
+
+                        // Tính điểm trung bình môn
+                        decimal tbMon = (diemMieng + diem15p + diem45p * 2 + diemThi * 3) / 7;
+                        row["TBMon"] = Math.Round(tbMon, 2); // Làm tròn đến 2 chữ số sau dấu thập phân
+                    }
+
+                    // Thêm hàng tính trung bình học kỳ
+                    DataRow avgRow = dt.NewRow();
+
+                    // Tính toán trung bình học kỳ
+                    decimal sumTBMon = 0;
+                    foreach (DataRow row in dt.Rows)
+                    {
+                        sumTBMon += Convert.ToDecimal(row["TBMon"]);
+                    }
+                    decimal avgTBMon = sumTBMon / dt.Rows.Count;
+                    avgRow["MaHocSinh"] = "Trung bình học kỳ";
+                    avgRow["Họ và Tên"] = "";
+                    avgRow["Tên Lớp"] = "";
+                    avgRow["Tên Năm Học"] = "";
+                    avgRow["Tên Môn Học"] = "";
+                    avgRow["Tên Học Kỳ"] = "";
+                    avgRow["Điểm miệng"] = DBNull.Value;
+                    avgRow["Điểm 15 phút"] = DBNull.Value;
+                    avgRow["Điểm 45 phút"] = DBNull.Value;
+                    avgRow["Điểm thi"] = DBNull.Value;
+                    avgRow["TBMon"] = Math.Round(avgTBMon, 2); // Làm tròn đến 2 chữ số sau dấu thập phân
+
+                    // Thêm hàng vào DataTable
+                    dt.Rows.Add(avgRow);
+
+                    // Hiển thị DataGridView
+                    dgvDSDiemHK2.DataSource = dt;
+                }
             }
         }
     }
-        }
+    catch (Exception ex)
+    {
+        MessageBox.Show("Error: " + ex.Message);
+    }
+}
+
+
+
 
         private void dgvDSDiem_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            dgvDSDiem.Font = new Font("Times New Roman", 12, FontStyle.Regular);
+            dgvDSDiemHK2.Font = new Font("Times New Roman", 12, FontStyle.Regular);
             int i;
-            i = dgvDSDiem.CurrentRow.Index;
-            txtMaHS.Text = dgvDSDiem.Rows[i].Cells[0].Value.ToString();
-            txtHoTen.Text = dgvDSDiem.Rows[i].Cells[1].Value.ToString();
-            txtTenLop.Text = dgvDSDiem.Rows[i].Cells[2].Value.ToString();
-            txtTenNamHoc.Text = dgvDSDiem.Rows[i].Cells[3].Value.ToString();
-            txtTenMon.Text = dgvDSDiem.Rows[i].Cells[4].Value.ToString();
-            txtTenHocKy.Text = dgvDSDiem.Rows[i].Cells[5].Value.ToString();
-            txtDiemMieng.Text = dgvDSDiem.Rows[i].Cells[6].Value.ToString();
-            txtDiem15p.Text = dgvDSDiem.Rows[i].Cells[7].Value.ToString();
-            txtDiem45p.Text = dgvDSDiem.Rows[i].Cells[8].Value.ToString();
-            txtDiemThi.Text = dgvDSDiem.Rows[i].Cells[9].Value.ToString();
+            i = dgvDSDiemHK2.CurrentRow.Index;
+            txtMaHS.Text = dgvDSDiemHK2.Rows[i].Cells[0].Value.ToString();
+            txtHoTen.Text = dgvDSDiemHK2.Rows[i].Cells[1].Value.ToString();
+            txtTenLop.Text = dgvDSDiemHK2.Rows[i].Cells[2].Value.ToString();
+            txtTenNamHoc.Text = dgvDSDiemHK2.Rows[i].Cells[3].Value.ToString();
+            txtTenMon.Text = dgvDSDiemHK2.Rows[i].Cells[4].Value.ToString();
+            txtTenHocKy.Text = dgvDSDiemHK2.Rows[i].Cells[5].Value.ToString();
+            txtDiemMieng.Text = dgvDSDiemHK2.Rows[i].Cells[6].Value.ToString();
+            txtDiem15p.Text = dgvDSDiemHK2.Rows[i].Cells[7].Value.ToString();
+            txtDiem45p.Text = dgvDSDiemHK2.Rows[i].Cells[8].Value.ToString();
+            txtDiemThi.Text = dgvDSDiemHK2.Rows[i].Cells[9].Value.ToString();
+
         }
 
         private void btnSua_Click(object sender, EventArgs e)
@@ -138,10 +168,15 @@ namespace CNPM
                 }
             }
         }
-
         private void btnReset_Click(object sender, EventArgs e)
         {
             reset();
+        }
+        private void btnBack_Click(object sender, EventArgs e)
+        {
+            frmHocSinh hocSinh = new frmHocSinh(username, role);
+            hocSinh.Show();
+            this.Hide();
         }
     }
 }
