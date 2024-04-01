@@ -36,7 +36,9 @@ CREATE TABLE NGUOIDUNG
 	MatKhau VARCHAR(64) NOT NULL,
 	CONSTRAINT FK_NGUOIDUNG_LOAINGUOIDUNG FOREIGN KEY(MaLoai) REFERENCES LOAINGUOIDUNG(MaLoai)
 )
+SELECT* FROM dbo.NGUOIDUNG
 INSERT INTO NGUOIDUNG VALUES('ND0001', 'LND001', N'18520339-AdminKha', 'admin', '123456')
+INSERT INTO NGUOIDUNG VALUES('ND0004', 'LND001', N'18520339-AdminKha', '1', '1')
 INSERT INTO NGUOIDUNG VALUES('ND0002', 'LND002', N'18520597-Thanh', 'thanh', '123456')
 INSERT INTO NGUOIDUNG VALUES('ND0003', 'LND003', N'18520262-Phong', 'phong', '123456')
 --===================================================================================================================================================
@@ -74,7 +76,7 @@ CREATE TABLE NAMHOC
 	TenNamHoc NVARCHAR(30) NOT NULL
 )
 
-INSERT INTO NAMHOC VALUES('NH2223', '2012-2023')
+INSERT INTO NAMHOC VALUES('NH2223', '2022-2023')
 INSERT INTO NAMHOC VALUES('NH2324', '2023-2024')
 
 --===================================================================================================================================================
@@ -467,7 +469,7 @@ CREATE TABLE KQ_HOCSINH_MONHOC
 	CONSTRAINT CK_Diem15PhutTB CHECK(Diem15PhutTB BETWEEN 0 AND 10),
 	CONSTRAINT CK_Diem45PhutTB CHECK(Diem45PhutTB BETWEEN 0 AND 10),
 	CONSTRAINT CK_DiemThi CHECK(DiemThi BETWEEN 0 AND 10),
-	CONSTRAINT CK_DiemTBHK CHECK(DiemTBHK BETWEEN 0 AND 10),
+
 )
 ALTER TABLE dbo.KQ_HOCSINH_MONHOC ADD CONSTRAINT CK_DiemThi CHECK(DiemThi BETWEEN 0 AND 10)
 SELECT *FROM dbo.HOCSINH
@@ -977,6 +979,71 @@ VALUES
 
 
 --==========================TẠO PROC========================
+--=============NGƯỜI DÙNG=================
+CREATE PROCEDURE themNguoiDung
+    @MaNguoiDung VARCHAR(6),
+    @MaLoai VARCHAR(6),
+    @TenNguoiDung NVARCHAR(30),
+    @TenDangNhap NVARCHAR(30),
+    @MatKhau VARCHAR(64)
+AS
+BEGIN
+    SET NOCOUNT ON;
+    IF EXISTS (SELECT 1 FROM NGUOIDUNG WHERE MaNguoiDung = @MaNguoiDung)
+    BEGIN
+        PRINT 'Mã người dùng đã tồn tại. Vui lòng chọn mã người dùng khác.';
+        RETURN;
+    END
+    IF EXISTS (SELECT 1 FROM NGUOIDUNG WHERE TenDangNhap = @TenDangNhap)
+    BEGIN
+        PRINT 'Tên đăng nhập đã tồn tại. Vui lòng chọn tên đăng nhập khác.';
+        RETURN;
+    END
+    INSERT INTO NGUOIDUNG (MaNguoiDung, MaLoai, TenNguoiDung, TenDangNhap, MatKhau)
+    VALUES (@MaNguoiDung, @MaLoai, @TenNguoiDung, @TenDangNhap, @MatKhau);
+
+    PRINT 'Thêm người dùng thành công.';
+END;
+
+--Sua
+CREATE PROCEDURE suaNguoiDung
+    @MaNguoiDung VARCHAR(6),
+    @MaLoai VARCHAR(6),
+    @TenNguoiDung NVARCHAR(30),
+    @TenDangNhap NVARCHAR(30),
+    @MatKhau VARCHAR(64)
+AS
+BEGIN
+    SET NOCOUNT ON;
+    IF NOT EXISTS (SELECT 1 FROM NGUOIDUNG WHERE MaNguoiDung = @MaNguoiDung)
+    BEGIN
+        PRINT 'Người dùng không tồn tại.';
+        RETURN;
+    END
+    IF EXISTS (SELECT 1 FROM NGUOIDUNG WHERE TenDangNhap = @TenDangNhap AND MaNguoiDung != @MaNguoiDung)
+    BEGIN
+        PRINT 'Tên đăng nhập đã tồn tại cho người dùng khác.';
+        RETURN;
+    END
+    UPDATE NGUOIDUNG
+    SET MaLoai = @MaLoai,
+        TenNguoiDung = @TenNguoiDung,
+        TenDangNhap = @TenDangNhap,
+        MatKhau = @MatKhau
+    WHERE MaNguoiDung = @MaNguoiDung;
+    PRINT 'Thông tin người dùng đã được cập nhật thành công.';
+END;
+--xoa
+CREATE PROCEDURE xoaNguoiDung
+    @MaNguoiDung VARCHAR(6)
+AS
+BEGIN
+    SET NOCOUNT ON;
+    DELETE FROM dbo.NGUOIDUNG
+    WHERE MaNguoiDung = @MaNguoiDung;
+
+    PRINT 'Xóa người dùng thành công.';
+END;
 
 --==========HỌC SINH=========
 --THÊM HỌC SINH
@@ -1259,3 +1326,134 @@ BEGIN
     WHERE ID = @ID;
 END;
 SELECT * FROM dbo.LichHoc
+--==========LOP=============
+-- Add class
+CREATE PROCEDURE InsertClass
+	@MaLop VARCHAR(10),
+	@TenLop NVARCHAR(30),
+	@MaKhoiLop VARCHAR(6),
+	@MaNamHoc VARCHAR(6),
+	@SiSo INT,
+	@MaGiaoVien VARCHAR(6)
+AS
+BEGIN
+IF NOT EXISTS (SELECT 1 FROM LOP WHERE MaLop = @MaLop)
+BEGIN
+	INSERT INTO LOP VALUES (@MaLop, @TenLop, @MaKhoiLop, @MaNamHoc, @SiSo, @MaGiaoVien)
+	PRINT('OK')
+END
+ELSE
+BEGIN
+	PRINT('FAILED')
+END
+
+END
+-- UPDATE CLASS
+CREATE PROC update_Lop 
+	@MaLop VARCHAR(10),
+	@TenLop NVARCHAR(30),
+	@MaKhoiLop VARCHAR(6),
+	@MaNamHoc VARCHAR(6),
+	@SiSo INT,
+	@MaGiaoVien VARCHAR(6)
+as
+begin
+	update LOP set TenLop = @TenLop, MaKhoiLop= @MaKhoiLop, MaNamHoc = @MaNamHoc, SiSo = @SiSo, MaGiaoVien = @MaGiaoVien where MaLop = @MaLop
+end
+-- DELETE LOP
+CREATE PROC del_LOP
+@MaLop varchar(10)
+AS 
+BEGIN
+DELETE FROM LOP WHERE MaLop = @MaLop
+END 
+--===========MONHOC==============
+-- INSERT MON HOC
+CREATE PROC INSERT_SUBJECT
+	@MaMonHoc VARCHAR(6),
+	@TenMonHoc NVARCHAR(30),
+	@SoTiet INT ,
+	@HeSo INT
+AS
+BEGIN
+	IF NOT EXISTS (SELECT 1 FROM MONHOC WHERE MaMonHoc = @MaMonHoc)
+	BEGIN
+	INSERT INTO MONHOC VALUES(@MaMonHoc, @TenMonHoc, @SoTiet, @HeSo)
+	END
+	ELSE 
+	BEGIN
+        PRINT 'Mã môn học này đã tồn tại.';
+    END
+END
+
+-- Update subject
+CREATE PROC Update_Subject
+	@MaMonHoc VARCHAR(6),
+	@TenMonHoc NVARCHAR(30),
+	@SoTiet INT ,
+	@HeSo INT
+AS
+BEGIN
+	IF EXISTS (SELECT 1 FROM MONHOC WHERE MaMonHoc = @MaMonHoc)
+	BEGIN
+	UPDATE MONHOC SET TenMonHoc = @TenMonHoc, SoTiet = @SoTiet, HeSo = @HeSo WHERE  MaMonHoc = @MaMonHoc
+	END
+	ELSE 
+	BEGIN
+        PRINT 'Mã môn học này không tồn tại.';
+    END
+END
+
+CREATE PROC Delete_Subject
+	@MaMonHoc VARCHAR(6)
+AS
+BEGIN
+	IF EXISTS (SELECT 1 FROM MONHOC WHERE MaMonHoc = @MaMonHoc)
+	BEGIN
+	DELETE FROM MONHOC WHERE  MaMonHoc = @MaMonHoc
+	END
+	ELSE 
+	BEGIN
+        PRINT 'Mã môn học này không tồn tại.';
+    END
+END
+
+
+--==========KQ MONHOC_HS
+ALTER PROCEDURE [dbo].[them_KQ_HOCSINH_MONHOC]
+    @MaHocSinh VARCHAR(6),
+    @MaLop VARCHAR(10),
+    @MaNamHoc VARCHAR(6),
+    @MaMonHoc VARCHAR(6),
+    @MaHocKy VARCHAR(3),
+    @DiemMiengTB FLOAT,
+    @Diem15PhutTB FLOAT,
+    @Diem45PhutTB FLOAT,
+    @DiemThi FLOAT
+AS
+BEGIN
+    -- Kiểm tra xem mã học sinh có tồn tại không
+    IF EXISTS (SELECT 1 FROM HOCSINH WHERE MaHocSinh = @MaHocSinh)
+    BEGIN
+        -- Kiểm tra xem mã học kỳ có tồn tại không
+        IF EXISTS (SELECT 1 FROM HOCKY WHERE MaHocKy = @MaHocKy)
+        BEGIN
+            -- Thêm dữ liệu vào bảng KQ_HOCSINH_MONHOC
+            INSERT INTO KQ_HOCSINH_MONHOC (MaHocSinh, MaLop, MaNamHoc, MaMonHoc, MaHocKy, DiemMiengTB, Diem15PhutTB, Diem45PhutTB, DiemThi)
+            VALUES (@MaHocSinh, @MaLop, @MaNamHoc, @MaMonHoc, @MaHocKy, @DiemMiengTB, @Diem15PhutTB, @Diem45PhutTB, @DiemThi)
+
+            -- Trả về thông báo thành công
+            SELECT 'Thêm dữ liệu thành công.' AS ThongBao
+        END
+        ELSE
+        BEGIN
+            -- Trả về thông báo lỗi nếu mã học kỳ không tồn tại
+            SELECT 'Mã học kỳ không tồn tại. Vui lòng kiểm tra lại.' AS ThongBao
+        END
+    END
+    ELSE
+    BEGIN
+        -- Trả về thông báo lỗi nếu mã học sinh không tồn tại
+        SELECT 'Mã học sinh không tồn tại. Vui lòng kiểm tra lại.' AS ThongBao
+    END
+END
