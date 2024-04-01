@@ -50,6 +50,7 @@ namespace CNPM
             this.lbTitle = new System.Windows.Forms.Label();
             this.dgvGV = new System.Windows.Forms.DataGridView();
             this.txtMaMonHoc = new System.Windows.Forms.TextBox();
+            this.btnHome = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvGV)).BeginInit();
             this.SuspendLayout();
             // 
@@ -211,9 +212,9 @@ namespace CNPM
             // 
             this.lbTitle.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.lbTitle.Font = new System.Drawing.Font("Times New Roman", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbTitle.Location = new System.Drawing.Point(523, 13);
+            this.lbTitle.Location = new System.Drawing.Point(445, 9);
             this.lbTitle.Name = "lbTitle";
-            this.lbTitle.Size = new System.Drawing.Size(168, 29);
+            this.lbTitle.Size = new System.Drawing.Size(168, 37);
             this.lbTitle.TabIndex = 72;
             this.lbTitle.Text = "GIÁO VIÊN";
             // 
@@ -234,11 +235,23 @@ namespace CNPM
             this.txtMaMonHoc.Size = new System.Drawing.Size(164, 26);
             this.txtMaMonHoc.TabIndex = 89;
             // 
+            // btnHome
+            // 
+            this.btnHome.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnHome.Location = new System.Drawing.Point(12, 15);
+            this.btnHome.Name = "btnHome";
+            this.btnHome.Size = new System.Drawing.Size(102, 26);
+            this.btnHome.TabIndex = 158;
+            this.btnHome.Text = "Trang Chủ";
+            this.btnHome.UseVisualStyleBackColor = true;
+            this.btnHome.Click += new System.EventHandler(this.btnHome_Click);
+            // 
             // frmGiaoVien
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 19F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1200, 658);
+            this.Controls.Add(this.btnHome);
             this.Controls.Add(this.txtMaMonHoc);
             this.Controls.Add(this.txtMaDT);
             this.Controls.Add(this.lblMaDanToc);
@@ -261,12 +274,14 @@ namespace CNPM
             this.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "frmGiaoVien";
-            this.Text = "frmGiaoVien";
+            this.Text = "Giáo Viên";
             this.Load += new System.EventHandler(this.frmGiaoVien_Load_1);
             ((System.ComponentModel.ISupportInitialize)(this.dgvGV)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
         }
+
+        private System.Windows.Forms.Button btnHome;
 
         private System.Windows.Forms.TextBox txtMaMonHoc;
 

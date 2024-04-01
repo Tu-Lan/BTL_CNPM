@@ -51,5 +51,36 @@ namespace CNPM
             this.Hide();
             hs.Show();
         }
+        private void mônHọcToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmMonHoc monHoc = new frmMonHoc(username, role);
+            monHoc.Show();
+            this.Hide();;
+        }
+
+        private void lớpHọcToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmLop lop = new frmLop(username, role);
+            lop.Show();
+            this.Show();
+        }
+        private void giáoViênToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmGiaoVien giaoVien = new frmGiaoVien(username, role);
+            giaoVien.Show();
+            this.Hide();
+        }
+        private void lịchHọcToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmLichHoc lichHoc = new frmLichHoc(username,role);
+            lichHoc.Show();
+            this.Hide();
+        }
+        private void quảnLýTàiKhoảnToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmQuanLyTK quanLyTk = new frmQuanLyTK(username,role);
+            quanLyTk.Show();
+            this.Hide();
+        }
     }
 }

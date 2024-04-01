@@ -207,7 +207,6 @@ namespace CNPM
             DialogResult result = MessageBox.Show("Bạn có chắc chắn muốn xóa học sinh này?", "Xác nhận xóa", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (result == DialogResult.Yes)
             {
-                string constr = ConfigurationManager.ConnectionStrings["QLHS"].ConnectionString;
                 using (SqlConnection conn = new SqlConnection(constr))
                 {
                     try
@@ -239,17 +238,23 @@ namespace CNPM
                 frmTrangChuAD trangChuAD = new frmTrangChuAD(username:username,role:role);
                 this.Hide();
                 trangChuAD.Show();
-            }else if (role == "LND002")
+            }else if (role == "LND003")
             {
-                frmTrangChuBGH bgh = new frmTrangChuBGH(username:username,role:role);
+                frmTrangChuGV gv = new frmTrangChuGV(username:username,role:role);
                 this.Hide();
-                bgh.Show();
+                gv.Show();
             }
         }
         private void btnBangDiemKy2_Click(object sender, EventArgs e)
         {
             frmBangDiemHK2 bangDiemHk2 = new frmBangDiemHK2(txtMaHS.Text,username,role);
             bangDiemHk2.Show();
+            this.Hide();
+        }
+        private void btn_DiemCaNam_Click(object sender, EventArgs e)
+        {
+            frmKetQuaCuoiNam bangDiemCanam = new frmKetQuaCuoiNam(txtMaHS.Text, username, role);
+            bangDiemCanam.Show();
             this.Hide();
         }
     }

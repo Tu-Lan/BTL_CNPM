@@ -33,10 +33,12 @@ namespace CNPM
         {
             this.meNu = new System.Windows.Forms.MenuStrip();
             this.giáoViênToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.lịchHọcToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.họcSinhToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.lớpHọcToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mônHọcToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.báoCáoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.quảnLýTàiKhoảnToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.đăngXuấtToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.txtInfo = new System.Windows.Forms.TextBox();
             this.meNu.SuspendLayout();
@@ -45,7 +47,7 @@ namespace CNPM
             // meNu
             // 
             this.meNu.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.meNu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { this.giáoViênToolStripMenuItem, this.họcSinhToolStripMenuItem, this.lớpHọcToolStripMenuItem, this.mônHọcToolStripMenuItem, this.báoCáoToolStripMenuItem, this.đăngXuấtToolStripMenuItem });
+            this.meNu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { this.giáoViênToolStripMenuItem, this.lịchHọcToolStripMenuItem, this.họcSinhToolStripMenuItem, this.lớpHọcToolStripMenuItem, this.mônHọcToolStripMenuItem, this.báoCáoToolStripMenuItem, this.quảnLýTàiKhoảnToolStripMenuItem, this.đăngXuấtToolStripMenuItem });
             this.meNu.Location = new System.Drawing.Point(0, 0);
             this.meNu.Name = "meNu";
             this.meNu.Size = new System.Drawing.Size(933, 31);
@@ -57,6 +59,14 @@ namespace CNPM
             this.giáoViênToolStripMenuItem.Name = "giáoViênToolStripMenuItem";
             this.giáoViênToolStripMenuItem.Size = new System.Drawing.Size(107, 27);
             this.giáoViênToolStripMenuItem.Text = "Giáo Viên";
+            this.giáoViênToolStripMenuItem.Click += new System.EventHandler(this.giáoViênToolStripMenuItem_Click);
+            // 
+            // lịchHọcToolStripMenuItem
+            // 
+            this.lịchHọcToolStripMenuItem.Name = "lịchHọcToolStripMenuItem";
+            this.lịchHọcToolStripMenuItem.Size = new System.Drawing.Size(99, 27);
+            this.lịchHọcToolStripMenuItem.Text = "Lịch Học";
+            this.lịchHọcToolStripMenuItem.Click += new System.EventHandler(this.lịchHọcToolStripMenuItem_Click);
             // 
             // họcSinhToolStripMenuItem
             // 
@@ -70,18 +80,27 @@ namespace CNPM
             this.lớpHọcToolStripMenuItem.Name = "lớpHọcToolStripMenuItem";
             this.lớpHọcToolStripMenuItem.Size = new System.Drawing.Size(95, 27);
             this.lớpHọcToolStripMenuItem.Text = "Lớp Học";
+            this.lớpHọcToolStripMenuItem.Click += new System.EventHandler(this.lớpHọcToolStripMenuItem_Click);
             // 
             // mônHọcToolStripMenuItem
             // 
             this.mônHọcToolStripMenuItem.Name = "mônHọcToolStripMenuItem";
             this.mônHọcToolStripMenuItem.Size = new System.Drawing.Size(101, 27);
             this.mônHọcToolStripMenuItem.Text = "Môn Học";
+            this.mônHọcToolStripMenuItem.Click += new System.EventHandler(this.mônHọcToolStripMenuItem_Click);
             // 
             // báoCáoToolStripMenuItem
             // 
             this.báoCáoToolStripMenuItem.Name = "báoCáoToolStripMenuItem";
             this.báoCáoToolStripMenuItem.Size = new System.Drawing.Size(95, 27);
             this.báoCáoToolStripMenuItem.Text = "Báo Cáo";
+            // 
+            // quảnLýTàiKhoảnToolStripMenuItem
+            // 
+            this.quảnLýTàiKhoảnToolStripMenuItem.Name = "quảnLýTàiKhoảnToolStripMenuItem";
+            this.quảnLýTàiKhoảnToolStripMenuItem.Size = new System.Drawing.Size(179, 27);
+            this.quảnLýTàiKhoảnToolStripMenuItem.Text = "Quản lý Tài Khoản";
+            this.quảnLýTàiKhoảnToolStripMenuItem.Click += new System.EventHandler(this.quảnLýTàiKhoảnToolStripMenuItem_Click);
             // 
             // đăngXuấtToolStripMenuItem
             // 
@@ -93,7 +112,7 @@ namespace CNPM
             // txtInfo
             // 
             this.txtInfo.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtInfo.Location = new System.Drawing.Point(733, 0);
+            this.txtInfo.Location = new System.Drawing.Point(759, 34);
             this.txtInfo.Multiline = true;
             this.txtInfo.Name = "txtInfo";
             this.txtInfo.Size = new System.Drawing.Size(174, 31);
@@ -116,6 +135,10 @@ namespace CNPM
             this.ResumeLayout(false);
             this.PerformLayout();
         }
+
+        private System.Windows.Forms.ToolStripMenuItem quảnLýTàiKhoảnToolStripMenuItem;
+
+        private System.Windows.Forms.ToolStripMenuItem lịchHọcToolStripMenuItem;
 
         private System.Windows.Forms.TextBox txtInfo;
 

@@ -17,7 +17,9 @@ namespace CNPM
 
         private void điểmMônHọcToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            throw new System.NotImplementedException();
+            frmLichHoc lichHoc = new frmLichHoc(username,role);
+            lichHoc.Show();
+            this.Hide();
         }
 
         private void đăngXuấtToolStripMenuItem_Click(object sender, EventArgs e)
@@ -39,6 +41,20 @@ namespace CNPM
             frmHocSinh hs = new frmHocSinh(username:username,role:role);
             this.Hide();
             hs.Show();
+        }
+
+        private void mônHọcToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmMonHoc monHoc = new frmMonHoc(username, role);
+            monHoc.Show();
+            this.Hide();
+        }
+
+        private void lớpHọcToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmLop lop = new frmLop(username, role);
+            lop.Show();
+            this.Show();
         }
     }
 }

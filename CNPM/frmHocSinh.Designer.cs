@@ -56,6 +56,7 @@ namespace CNPM
             this.lblEmail = new System.Windows.Forms.Label();
             this.btnHome = new System.Windows.Forms.Button();
             this.btnBangDiemKy2 = new System.Windows.Forms.Button();
+            this.btn_DiemCaNam = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvHS)).BeginInit();
             this.SuspendLayout();
             // 
@@ -302,11 +303,23 @@ namespace CNPM
             this.btnBangDiemKy2.UseVisualStyleBackColor = true;
             this.btnBangDiemKy2.Click += new System.EventHandler(this.btnBangDiemKy2_Click);
             // 
+            // btn_DiemCaNam
+            // 
+            this.btn_DiemCaNam.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_DiemCaNam.Location = new System.Drawing.Point(714, 159);
+            this.btn_DiemCaNam.Name = "btn_DiemCaNam";
+            this.btn_DiemCaNam.Size = new System.Drawing.Size(164, 26);
+            this.btn_DiemCaNam.TabIndex = 53;
+            this.btn_DiemCaNam.Text = "Bảng điểm cả năm";
+            this.btn_DiemCaNam.UseVisualStyleBackColor = true;
+            this.btn_DiemCaNam.Click += new System.EventHandler(this.btn_DiemCaNam_Click);
+            // 
             // frmHocSinh
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(961, 654);
+            this.Controls.Add(this.btn_DiemCaNam);
             this.Controls.Add(this.btnBangDiemKy2);
             this.Controls.Add(this.btnHome);
             this.Controls.Add(this.txtEmail);
@@ -339,6 +352,8 @@ namespace CNPM
             this.ResumeLayout(false);
             this.PerformLayout();
         }
+
+        private System.Windows.Forms.Button btn_DiemCaNam;
 
         private System.Windows.Forms.Button btnBangDiemKy2;
 

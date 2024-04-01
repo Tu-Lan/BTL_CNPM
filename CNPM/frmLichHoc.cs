@@ -10,9 +10,13 @@ namespace CNPM
 {
     public partial class frmLichHoc : Form
     {
-        public frmLichHoc()
+        private string role;
+        private string username;
+        public frmLichHoc(string username,string role)
         {
             InitializeComponent();
+            this.username = username;
+            this.role = role;
         }
         string constr = ConfigurationManager.ConnectionStrings["QLHS"].ConnectionString;
 
@@ -161,6 +165,21 @@ namespace CNPM
                 adt.Fill(dt);
                 dgvLH.DataSource = dt;
 
+            }
+        }
+
+        private void btnHome_Click(object sender, EventArgs e)
+        {
+            if (role == "LND001")
+            {
+                frmTrangChuAD trangChuAD = new frmTrangChuAD(username:username,role:role);
+                this.Hide();
+                trangChuAD.Show();
+            }else if (role == "LND003")
+            {
+                frmTrangChuGV gv = new frmTrangChuGV(username:username,role:role);
+                this.Hide();
+                gv.Show();
             }
         }
     }

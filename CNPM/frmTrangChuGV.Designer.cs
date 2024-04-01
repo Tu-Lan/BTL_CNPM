@@ -64,12 +64,14 @@ namespace CNPM
             this.lớpHọcToolStripMenuItem.Name = "lớpHọcToolStripMenuItem";
             this.lớpHọcToolStripMenuItem.Size = new System.Drawing.Size(95, 27);
             this.lớpHọcToolStripMenuItem.Text = "Lớp Học";
+            this.lớpHọcToolStripMenuItem.Click += new System.EventHandler(this.lớpHọcToolStripMenuItem_Click);
             // 
             // mônHọcToolStripMenuItem
             // 
             this.mônHọcToolStripMenuItem.Name = "mônHọcToolStripMenuItem";
             this.mônHọcToolStripMenuItem.Size = new System.Drawing.Size(101, 27);
             this.mônHọcToolStripMenuItem.Text = "Môn Học";
+            this.mônHọcToolStripMenuItem.Click += new System.EventHandler(this.mônHọcToolStripMenuItem_Click);
             // 
             // lịchHọcToolStripMenuItem
             // 

@@ -244,9 +244,7 @@ N:\CNPM\BTL_CNPM\CNPM\bin\Debug\ru\Microsoft.Data.SqlClient.resources.dll
 N:\CNPM\BTL_CNPM\CNPM\bin\Debug\zh-Hans\Microsoft.Data.SqlClient.resources.dll
 N:\CNPM\BTL_CNPM\CNPM\bin\Debug\zh-Hant\Microsoft.Data.SqlClient.resources.dll
 N:\CNPM\BTL_CNPM\CNPM\obj\Debug\CNPM.csproj.AssemblyReference.cache
-N:\CNPM\BTL_CNPM\CNPM\obj\Debug\CNPM.frmChiTietHS.resources
 N:\CNPM\BTL_CNPM\CNPM\obj\Debug\CNPM.frmDangNhap.resources
-N:\CNPM\BTL_CNPM\CNPM\obj\Debug\CNPM.frmDiem.resources
 N:\CNPM\BTL_CNPM\CNPM\obj\Debug\CNPM.frmDiemHS.resources
 N:\CNPM\BTL_CNPM\CNPM\obj\Debug\CNPM.frmHocSinh.resources
 N:\CNPM\BTL_CNPM\CNPM\obj\Debug\CNPM.frmTrangChuAD.resources
@@ -262,3 +260,6 @@ N:\CNPM\BTL_CNPM\CNPM\obj\Debug\CNPM.frmBangDiemHK2.resources
 N:\CNPM\BTL_CNPM\CNPM\obj\Debug\CNPM.frmGiaoVien.resources
 N:\CNPM\BTL_CNPM\CNPM\obj\Debug\CNPM.frmLichHoc.resources
 N:\CNPM\BTL_CNPM\CNPM\obj\Debug\CNPM.frmKetQuaCuoiNam.resources
+N:\CNPM\BTL_CNPM\CNPM\obj\Debug\CNPM.frmLop.resources
+N:\CNPM\BTL_CNPM\CNPM\obj\Debug\CNPM.frmMonHoc.resources
+N:\CNPM\BTL_CNPM\CNPM\obj\Debug\CNPM.frmDoiMatKhau.resources

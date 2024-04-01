@@ -28,5 +28,11 @@ namespace CNPM
                 return;
             }
         }
+        private void mônHọcToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmMonHoc monHoc = new frmMonHoc(username, role);
+            monHoc.Show();
+            this.Hide();
+        }
     }
 }

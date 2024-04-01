@@ -52,6 +52,7 @@ namespace CNPM
             this.txtNgayHoc = new System.Windows.Forms.TextBox();
             this.txtID = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.btnHome = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvLH)).BeginInit();
             this.SuspendLayout();
             // 
@@ -254,11 +255,23 @@ namespace CNPM
             this.label1.TabIndex = 118;
             this.label1.Text = "ID:";
             // 
+            // btnHome
+            // 
+            this.btnHome.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnHome.Location = new System.Drawing.Point(12, 12);
+            this.btnHome.Name = "btnHome";
+            this.btnHome.Size = new System.Drawing.Size(102, 26);
+            this.btnHome.TabIndex = 193;
+            this.btnHome.Text = "Trang Chủ";
+            this.btnHome.UseVisualStyleBackColor = true;
+            this.btnHome.Click += new System.EventHandler(this.btnHome_Click);
+            // 
             // frmLichHoc
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 19F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1110, 658);
+            this.Controls.Add(this.btnHome);
             this.Controls.Add(this.txtID);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtNgayHoc);
@@ -289,6 +302,8 @@ namespace CNPM
             this.ResumeLayout(false);
             this.PerformLayout();
         }
+
+        private System.Windows.Forms.Button btnHome;
 
         private System.Windows.Forms.TextBox txtID;
         private System.Windows.Forms.Label label1;

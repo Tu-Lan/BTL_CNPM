@@ -9,8 +9,12 @@ namespace CNPM
 {
     public partial class frmGiaoVien : Form
     {
-        public frmGiaoVien()
+        private string role;
+        private string username;
+        public frmGiaoVien(string username, string role)
         {
+            this.username = username;
+            this.role = role;
             InitializeComponent();
         }
         string constr = ConfigurationManager.ConnectionStrings["QLHS"].ConnectionString;
@@ -209,6 +213,21 @@ namespace CNPM
                 adt.Fill(dt);
                 dgvGV.DataSource = dt;
 
+            }
+        }
+
+        private void btnHome_Click(object sender, EventArgs e)
+        {
+            if (role == "LND001")
+            {
+                frmTrangChuAD trangChuAD = new frmTrangChuAD(username:username,role:role);
+                this.Hide();
+                trangChuAD.Show();
+            }else if (role == "LND002")
+            {
+                frmTrangChuBGH bgh = new frmTrangChuBGH(username:username,role:role);
+                this.Hide();
+                bgh.Show();
             }
         }
     }

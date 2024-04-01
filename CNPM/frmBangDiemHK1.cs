@@ -27,10 +27,10 @@ namespace CNPM
         {
             txtMaHS.Text = "";
             txtHoTen.Text = "";
-            txtTenLop.Text = "";
-            txtTenNamHoc.Text = "";
-            txtTenMon.Text = "";
-            txtTenHocKy.Text = "";
+            cmbLop.Text = "";
+            cmbNamHoc.Text = "";
+            cmbMonHoc.Text = "";
+            cmbHocKy.Text = "";
             txtDiemMieng.Text = "";
             txtDiem15p.Text = "";
             txtDiem45p.Text = "";
@@ -53,6 +53,7 @@ namespace CNPM
                 INNER JOIN HOCKY HK ON KQ.MaHocKy = HK.MaHocKy 
                 INNER JOIN dbo.MONHOC MH ON MH.MaMonHoc = KQ.MaMonHoc 
                 WHERE KQ.MaHocSinh = @MaHocSinh AND HK.MaHocKy = 'HK1' ";
+
 
             using (SqlCommand cmd = new SqlCommand(query, conn))
             {
@@ -116,22 +117,141 @@ namespace CNPM
         MessageBox.Show("Error: " + ex.Message);
     }
 }
-       
+
+        private string GetIDLop(string tenLop)
+        {
+            string MaLop = "";
+            SqlConnection conn = new SqlConnection(constr);
+            try
+            {
+                conn.Open();
+                string query = "Select Lop.MaLop from Lop where Lop.TenLop  = @TenLop";
+                SqlCommand cmd = new SqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@TenLop", tenLop);
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    MaLop = reader["MaLop"].ToString();
+                }
+
+                reader.Close();
+            }
+            catch (Exception e)
+            {
+
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return MaLop;
+        }
+        private string GetIDNamHoc(string TenNamHoc)
+        {
+            string MaNamHoc = "";
+            SqlConnection conn = new SqlConnection(constr);
+            try
+            {
+                conn.Open();
+                string query = "SELECT MaNamHoc FROM NAMHOC WHERE TenNamHoc = @TenNamHoc";
+                SqlCommand cmd = new SqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@TenNamHoc", TenNamHoc);
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    MaNamHoc = reader["MaNamHoc"].ToString();
+                }
+
+                reader.Close();
+            }
+            catch (Exception e)
+            {
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return MaNamHoc;
+        }
+        private string GetIDMonHoc(string tenMon)
+        {
+            string MaMonHoc = "";
+            SqlConnection conn = new SqlConnection(constr);
+            try
+            {
+                conn.Open();
+                string query = "Select MaMonHoc from MONHOC where TenMonHoc  = @TenLop";
+                SqlCommand cmd = new SqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@TenLop", tenMon);
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    MaMonHoc = reader["MaMonHoc"].ToString();
+                }
+
+                reader.Close();
+            }
+            catch (Exception e)
+            {
+
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return MaMonHoc;
+        }
+        private string GetIDHocKy(string tenHK)
+        {
+            string MaHocKy = "";
+            SqlConnection conn = new SqlConnection(constr);
+            try
+            {
+                conn.Open();
+                string query = "Select MaHocKy from HOCKY where TenHocKy  = @TenHocKy";
+                SqlCommand cmd = new SqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@TenLop", tenHK);
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    MaHocKy = reader["MaHocKy"].ToString();
+                }
+
+                reader.Close();
+            }
+            catch (Exception e)
+            {
+
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return MaHocKy;
+        }
         private void dgvDSDiem_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            dgvDSDiem.Font = new Font("Times New Roman", 12, FontStyle.Regular);
+            dgvDiemHK1.Font = new Font("Times New Roman", 12, FontStyle.Regular);
             int i;
-            i = dgvDSDiem.CurrentRow.Index;
-            txtMaHS.Text = dgvDSDiem.Rows[i].Cells[0].Value.ToString();
-            txtHoTen.Text = dgvDSDiem.Rows[i].Cells[1].Value.ToString();
-            txtTenLop.Text = dgvDSDiem.Rows[i].Cells[2].Value.ToString();
-            txtTenNamHoc.Text = dgvDSDiem.Rows[i].Cells[3].Value.ToString();
-            txtTenMon.Text = dgvDSDiem.Rows[i].Cells[4].Value.ToString();
-            txtTenHocKy.Text = dgvDSDiem.Rows[i].Cells[5].Value.ToString();
-            txtDiemMieng.Text = dgvDSDiem.Rows[i].Cells[6].Value.ToString();
-            txtDiem15p.Text = dgvDSDiem.Rows[i].Cells[7].Value.ToString();
-            txtDiem45p.Text = dgvDSDiem.Rows[i].Cells[8].Value.ToString();
-            txtDiemThi.Text = dgvDSDiem.Rows[i].Cells[9].Value.ToString();
+            i = dgvDiemHK1.CurrentRow.Index;
+            txtMaHS.Text = dgvDiemHK1.Rows[i].Cells[0].Value.ToString();
+            txtHoTen.Text = dgvDiemHK1.Rows[i].Cells[1].Value.ToString();
+            txtTenLop.Text = dgvDiemHK1.Rows[i].Cells[2].Value.ToString();
+            txtTenNamHoc.Text = dgvDiemHK1.Rows[i].Cells[3].Value.ToString();
+            txtTenMon.Text = dgvDiemHK1.Rows[i].Cells[4].Value.ToString();
+            txtTenHocKy.Text = dgvDiemHK1.Rows[i].Cells[5].Value.ToString();
+            txtDiemMieng.Text = dgvDiemHK1.Rows[i].Cells[6].Value.ToString();
+            txtDiem15p.Text = dgvDiemHK1.Rows[i].Cells[7].Value.ToString();
+            txtDiem45p.Text = dgvDiemHK1.Rows[i].Cells[8].Value.ToString();
+            txtDiemThi.Text = dgvDiemHK1.Rows[i].Cells[9].Value.ToString();
 
         }
         private void btnSua_Click(object sender, EventArgs e)
@@ -210,5 +330,6 @@ namespace CNPM
             hocSinh.Show();
             this.Hide();
         }
+        
     }
 }
